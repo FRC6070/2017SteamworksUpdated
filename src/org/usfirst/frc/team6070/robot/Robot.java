@@ -126,9 +126,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putDouble("Accel", DriveBase.getAccel());
-		SmartDashboard.putDouble("Gyro", DriveBase.getGyroYaw());
-		SmartDashboard.putDouble("Dist: ", DriveBase.getDist());
+		SmartDashboard.putNumber("Accel", DriveBase.getAccel());
+		SmartDashboard.putNumber("Gyro", DriveBase.getGyroYaw());
+		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
 		//SmartDashboard.putDouble("IMU", DriveBase.imu.getAngle());
 		Scheduler.getInstance().run();
 		

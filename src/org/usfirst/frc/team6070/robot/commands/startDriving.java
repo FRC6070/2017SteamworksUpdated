@@ -5,17 +5,18 @@ import org.usfirst.frc.team6070.robot.Robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class startDriving extends Command {
 
-	int control = 1;
+	double control; 
 	// 1 is arcadeDrive, 0 is tankDrive, 2 is Nafeh-drive
 	int thing = 0;
 	int reverse = 1;
-	double slow = 1;
+	double slow = 0.6;
     public startDriving() {
     	requires (Robot.DriveBase);
         // Use requires() here to declare subsystem dependencies
@@ -28,6 +29,7 @@ public class startDriving extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	control = SmartDashboard.getNumber("control", 0);
     	if (OI.xbox.getTriggerAxis(Hand.kRight) > 0.8)
     	{
     		reverse = -1;
@@ -38,11 +40,11 @@ public class startDriving extends Command {
     	}
     	if (OI.xbox.getTriggerAxis(Hand.kLeft) > 0.8)
     	{
-    		slow = 0.6;
+    		slow = 1;
     	}
     	else
     	{
-    		slow = 1;
+    		slow = 0.6;
     	}
     	if (OI.driveYleft() > 0.1)
     	{

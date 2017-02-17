@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import theory6PID.PIDController;
 
 
 /**
@@ -29,7 +31,11 @@ public class Chassis extends Subsystem {
 	public double dist = 0;
 	double anglefix;
 	
-	double kp = 0.7;
+	double kpgyro = 0.03;
+	double kigyro = 0.0;
+	double kdgyro = 0.0;
+	
+	PIDController gyroPID = new PIDController(0.03, 0.0, 0.0);
 	
 //	ADIS16448_IMU gyro = new ADIS16448_IMU();
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -65,6 +71,9 @@ public class Chassis extends Subsystem {
     {
     	anglefix = gyro.getAngle();
     	//anglefix = imu.getYaw();
+    	kpgyro = SmartDashboard.getNumber("kpval", 0.03);
+    	kigyro = SmartDashboard.getNumber("kival", 0.0);
+    	kdgyro = SmartDashboard.getNumber("kdval", 0.0);
     }
     public void drivestraight(double dist)
     {
@@ -73,6 +82,7 @@ public class Chassis extends Subsystem {
     	double driveangle = gyro.getAngle();
     	Timer mytimer = new Timer();
     	double prevtime = 0;
+    	double timenow = 0;
     	mytimer.reset();
     	mytimer.start();
     	while (!done)
@@ -80,7 +90,7 @@ public class Chassis extends Subsystem {
     		if (dist - this.dist > 5)
         	{
         		speed = 0.8;
-        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *kp);
+        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *0.7);
         	}
         	else if (dist - this.dist < 0.1)
         	{
@@ -91,23 +101,21 @@ public class Chassis extends Subsystem {
         	else
         	{
         		speed = (dist - this.dist)*0.2;
-        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *kp);
+        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2);
         	}
-        	this.updateaccel();
-        	while(mytimer.get() - prevtime <0.2)
-        	{
-        		
-        	}
-        	prevtime = mytimer.get();
+    		
     	}
+    	timenow = mytimer.get();
+        this.updateaccel(prevtime, timenow);
+        prevtime = mytimer.get();
     }
    
-    public void updateaccel()
+    public void updateaccel(double t0, double t1)
     {
     	acc = accel.getX()*32.2;
     	//System.out.println(acc);
-    	vel += acc*0.2;
-    	dist += vel*0.2;
+    	vel += acc*(t1-t0);
+    	dist += vel*(t1-t0);
     }
     
     public void stop (){
@@ -119,30 +127,32 @@ public class Chassis extends Subsystem {
     	
     	drive.arcadeDrive(0, 1);
     }
-    public void turnPID(double angle)
+    public void turnPID(double angle, double speed)
     {
-    	boolean done = false;
-    	while (!done)
-    	{
-    		double ang = (gyro.getAngle() % 360);
-    		//double ang = (imu.getYaw() % 360);
-    		System.out.print("Angle current: ");
-    		System.out.print(ang);
-    		System.out.println();
-    		if (angle-ang < 4)
-    		{
-    			done = true;
-    			drive.arcadeDrive(0, 0);
-    		}
-    		else
-    		{
-    			drive.arcadeDrive(0, ((angle-ang)/(angle-anglefix))*0.5);
-    		}
-    	}
-    	if (done)
-    	{
-    		drive.arcadeDrive(0, 0);
-    	}
+//    	boolean done = false;
+//    	while (!done)
+//    	{
+//    		double ang = (gyro.getAngle() % 360);
+//    		//double ang = (imu.getYaw() % 360);
+//    		System.out.print("Angle current: ");
+//    		System.out.print(ang);
+//    		System.out.println();
+//    		if (angle-ang < 4)
+//    		{
+//    			done = true;
+//    			drive.arcadeDrive(0, 0);
+//    		}
+//    		else
+//    		{
+//    			drive.arcadeDrive(0, ((angle-ang)/(angle-anglefix))*0.5);
+//    		}
+//    	}
+//    	if (done)
+//    	{
+//    		drive.arcadeDrive(0, 0);
+//    	}
+    	double ang = gyroPID.calcPID(angle, getGyroYaw(), 1);
+    	drive.tankDrive(speed+angle, speed-angle);
     }
     public void resetAccel()
     {
@@ -168,6 +178,5 @@ public class Chassis extends Subsystem {
     {
     	return dist;
     }
-    
 }
 

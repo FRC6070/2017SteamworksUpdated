@@ -32,9 +32,8 @@ public class AutoTurn extends Command {
     protected void execute() {
     	Robot.DriveBase.setdirection();
     	//Robot.DriveBase.resetGyro();
-    	Robot.DriveBase.turnPID(angle);
+    	Robot.DriveBase.turnPID(angle, 0);
     	//Robot.DriveBase.resetAccel();
-    	done = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
