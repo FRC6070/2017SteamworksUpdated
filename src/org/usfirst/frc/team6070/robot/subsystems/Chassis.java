@@ -16,6 +16,7 @@ import theory6PID.PIDController;
 /**
  * This is the main drivetrain.
  */
+@SuppressWarnings("unused")
 public class Chassis extends Subsystem {
 	
 	Victor LF = new Victor (RobotMap.leftFront);
@@ -35,7 +36,12 @@ public class Chassis extends Subsystem {
 	double kigyro = 0.0;
 	double kdgyro = 0.0;
 	
-	PIDController gyroPID = new PIDController(0.03, 0.0, 0.0);
+	double kpaccel = 0.7;
+	double kiaccel = 0.0;
+	double kdaccel = 0.0;
+	
+	public PIDController gyroPID = new PIDController(kpgyro, kigyro, kdgyro);
+	public PIDController accelPID = new PIDController(kpaccel, kiaccel, kdaccel);
 	
 //	ADIS16448_IMU gyro = new ADIS16448_IMU();
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -71,43 +77,58 @@ public class Chassis extends Subsystem {
     {
     	anglefix = gyro.getAngle();
     	//anglefix = imu.getYaw();
+    	
+    }
+    
+    public void getGyroPID()
+    {
     	kpgyro = SmartDashboard.getNumber("kpval", 0.03);
     	kigyro = SmartDashboard.getNumber("kival", 0.0);
     	kdgyro = SmartDashboard.getNumber("kdval", 0.0);
+    	gyroPID.changePIDGains(kpgyro, kigyro, kdgyro);
     }
-    public void drivestraight(double dist)
+    public void getAccelPID()
     {
-    	double speed;
-    	boolean done = false;
-    	double driveangle = gyro.getAngle();
-    	Timer mytimer = new Timer();
-    	double prevtime = 0;
-    	double timenow = 0;
-    	mytimer.reset();
-    	mytimer.start();
-    	while (!done)
-    	{
-    		if (dist - this.dist > 5)
-        	{
-        		speed = 0.8;
-        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *0.7);
-        	}
-        	else if (dist - this.dist < 0.1)
-        	{
-        		speed = 0.0;
-        		done = true;
-        		drive.arcadeDrive(0,0);
-        	}
-        	else
-        	{
-        		speed = (dist - this.dist)*0.2;
-        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2);
-        	}
-    		
-    	}
-    	timenow = mytimer.get();
-        this.updateaccel(prevtime, timenow);
-        prevtime = mytimer.get();
+    	kpaccel = SmartDashboard.getNumber("kpacc", 0.07);
+    	kiaccel = SmartDashboard.getNumber("kiacc", 0.0);
+    	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
+    	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
+    }
+    public void driveStraight(double dist)
+    {
+    	double speed = 0.6;
+    	double out = accelPID.calcPIDDrive(dist*12, this.dist*12, 2);
+    	double ang = gyroPID.calcPID(anglefix, gyro.getAngle(), 1);
+    	
+    	drive.tankDrive((out+ang)*speed, (out-ang)*speed);
+//    	Timer mytimer = new Timer();
+//    	double prevtime = 0;
+//    	double timenow = 0;
+//    	mytimer.reset();
+//    	mytimer.start();
+//    	while (!done)
+//    	{
+//    		if (dist - this.dist > 5)
+//        	{
+//        		speed = 0.8;
+//        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *0.7);
+//        	}
+//        	else if (dist - this.dist < 0.1)
+//        	{
+//        		speed = 0.0;
+//        		done = true;
+//        		drive.arcadeDrive(0,0);
+//        	}
+//        	else
+//        	{
+//        		speed = (dist - this.dist)*0.2;
+//        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2);
+//        	}
+//    		
+//    	}
+//    	timenow = mytimer.get();
+//        this.updateaccel(prevtime, timenow);
+//        prevtime = mytimer.get();
     }
    
     public void updateaccel(double t0, double t1)
@@ -152,7 +173,7 @@ public class Chassis extends Subsystem {
 //    		drive.arcadeDrive(0, 0);
 //    	}
     	double ang = gyroPID.calcPID(angle, getGyroYaw(), 1);
-    	drive.tankDrive(speed+angle, speed-angle);
+    	drive.tankDrive(speed*angle, -speed*angle);
     }
     public void resetAccel()
     {

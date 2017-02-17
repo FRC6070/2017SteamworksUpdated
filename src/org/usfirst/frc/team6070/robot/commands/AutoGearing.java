@@ -32,9 +32,9 @@ public class AutoGearing extends Command {
     	{
     		Robot.gear.forwards();
     	}
-    	else if (mytimer.get() < 7 && !Robot.gear.isfullback())
+    	else if (mytimer.get() < 4 && !Robot.gear.isfullback())
     	{
-    		Robot.gear.backslow();
+    		Robot.gear.backwards();
     	}
     	else
     	{
