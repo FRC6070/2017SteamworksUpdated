@@ -38,9 +38,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default - for now", new AutoDrive(5));
+		chooser.addDefault("Default - for now autodrive 5 feet", new AutoDrive(5, 2));
 		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
-		chooser.addObject("Thingy", new AutoTurn(-30));
+		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30));
 		climber = new Climber();
 		DriveBase = new Chassis();
 		gear = new GearBox();
@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(5));
+		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(5, 2));
 		SmartDashboard.putData("Realign", new AutoTurn(90));
 		SmartDashboard.putData("Chassis:", DriveBase);
 		

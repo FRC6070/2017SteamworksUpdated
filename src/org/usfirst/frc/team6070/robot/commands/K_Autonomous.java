@@ -15,31 +15,31 @@ public class K_Autonomous extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential (new AutoDrive (8.67));
+    	addSequential (new AutoDrive (8.67, 3));
     
     	
     	if (driver){
     		addSequential (new AutoTurn(-28)); 
-    		addSequential ((new AutoDrive(3.99)));
+    		addSequential ((new AutoDrive(4, 2)));
     		// Gear Here
     		addSequential (new AutoGearing());
-    		addSequential (new AutoDrive(-3.99));
+    		addSequential (new AutoDrive(-4, 2));
     		addSequential (new AutoTurn(62));
-    		addSequential ((new AutoDrive(6.75)));
+    		addSequential ((new AutoDrive(6.75, 2)));
     		addSequential (new AutoTurn(-41.92));
-    		addSequential ((new AutoDrive(31)));
+    		addSequential ((new AutoDrive(31, 10)));
     		
     	}
     	else {
     		addSequential (new AutoTurn(28)); 
-    		addSequential ((new AutoDrive(3.99)));
+    		addSequential ((new AutoDrive(4, 2)));
     		// Gear Here
     		addSequential (new AutoGearing());
-    		addSequential (new AutoDrive(-3.99));
+    		addSequential (new AutoDrive(-4, 2));
     		addSequential (new AutoTurn(-62));
-    		addSequential ((new AutoDrive(6.75)));
+    		addSequential ((new AutoDrive(6.75, 2)));
     		addSequential (new AutoTurn(41.92));
-    		addSequential ((new AutoDrive(31)));
+    		addSequential ((new AutoDrive(31, 2)));
     		
     		
     		}
