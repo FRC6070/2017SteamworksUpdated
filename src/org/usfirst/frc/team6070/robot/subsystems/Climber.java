@@ -35,6 +35,11 @@ public class Climber extends Subsystem {
     		climber1.set(-0.5);
     		climber2.set(-0.5);
     	}
+    	else if (level == 3)
+    	{
+    		climber1.set(-0.7);
+    		climber2.set(-0.7);
+    	}
     	else if (level == -1)
     	{
     		climber1.set(0.3);

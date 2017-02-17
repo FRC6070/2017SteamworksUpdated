@@ -29,6 +29,10 @@ public class FastClimb extends Command {
     	{
     		Robot.climber.climb(2);
     	}
+    	else if (OI.xbox.getYButton())
+    	{
+    		Robot.climber.climb(3);
+    	}
     	else if (OI.xbox.getXButton())
     	{
     		Robot.climber.climb(-1);

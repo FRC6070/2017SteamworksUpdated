@@ -39,7 +39,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		chooser.addDefault("Default - for now autodrive 5 feet", new AutoDrive(5, 2));
+		chooser.addObject("Centre auto", new StephenAutonomous());
 		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
+		chooser.addObject("Red left/Blue right", new StephenKenishaAuto());
 		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30));
 		climber = new Climber();
 		DriveBase = new Chassis();
