@@ -60,7 +60,14 @@ public class startDriving extends Command {
     	}
     	if (control == 0)
     	{
-    		Robot.DriveBase.drive(OI.driveYleft()*reverse*slow, OI.driveYright()*reverse*slow, true);
+    		if (reverse == -1)
+    		{
+    			Robot.DriveBase.drive(OI.driveYright()*slow, OI.driveYleft()*slow, true);
+    		}
+    		else
+    		{
+    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright());
+    		}
     	}
     	else if (control == 1)
     	{

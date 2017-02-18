@@ -44,7 +44,7 @@ public class OI {
 			return 0;
 			
 		} else {
-			return xbox.getX();
+			return xbox.getX()*Math.abs(xbox.getX());
 		}
 		
 		
@@ -55,7 +55,7 @@ public class OI {
 			return 0;
 			
 		} else {
-			return xbox.getY(Hand.kLeft);
+			return xbox.getY(Hand.kLeft)*Math.abs(xbox.getY(Hand.kLeft));
 		}
 		
 	}
@@ -65,7 +65,7 @@ public class OI {
 			return 0;
 			
 		} else {
-			return xbox.getY(Hand.kRight);
+			return xbox.getY(Hand.kRight)*Math.abs(xbox.getY(Hand.kRight));
 		}
 	}
 	//// CREATING BUTTONS
