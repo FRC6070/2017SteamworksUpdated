@@ -1,6 +1,4 @@
 package org.usfirst.frc.team6070.robot.subsystems;
-import java.util.Arrays;
-
 import org.usfirst.frc.team6070.robot.RobotMap;
 
 import org.usfirst.frc.team6070.robot.commands.*;
@@ -11,7 +9,6 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.*;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import theory6PID.PIDController;
 
@@ -43,13 +40,8 @@ public class Chassis extends Subsystem {
 	double kiaccel = 0.0;
 	double kdaccel = 0.0;
 	
-	double kpcam = 0.4;
-	double kicam = 0.0;
-	double kdcam = 0.0;
-	
 	public PIDController gyroPID = new PIDController(kpgyro, kigyro, kdgyro);
 	public PIDController accelPID = new PIDController(kpaccel, kiaccel, kdaccel);
-	public PIDController camPID = new PIDController(kpcam, kicam, kdcam);
 	
 //	ADIS16448_IMU gyro = new ADIS16448_IMU();
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -57,13 +49,6 @@ public class Chassis extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	// Camera Variables
-	NetworkTable table;
-	double imgheight = 320;
-	double imgwidth = 640;
-	double centreh = imgheight/2;
-	double centrew = imgwidth/2;
-	
     public void initDefaultCommand() {
     	drive.setInvertedMotor(MotorType.kFrontRight, true);
     	drive.setInvertedMotor(MotorType.kRearRight, true);
@@ -94,14 +79,7 @@ public class Chassis extends Subsystem {
     	//anglefix = imu.getYaw();
     	
     }
-    /* untested */
-    public void getCamPID()
-    {
-    	kpcam = SmartDashboard.getNumber("kpcam", 0.4);
-    	kicam = SmartDashboard.getNumber("kicam", 0.0);
-    	kdcam = SmartDashboard.getNumber("kdcam", 0.0);
-    	camPID.changePIDGains(kpcam, kicam, kdcam);
-    }
+    
     public void getGyroPID()
     {
     	kpgyro = SmartDashboard.getNumber("kpval", 0.03);
@@ -116,58 +94,6 @@ public class Chassis extends Subsystem {
     	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
     	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
     }
-    
-    public void cameradrive(double dist, double speed)
-    {
-    	table = NetworkTable.getTable("GRIP/myContoursReport");
-    	double[] defaultValue = new double[0];
-    	double[] areas = table.getNumberArray("area", defaultValue);
-    	double[] xvals = table.getNumberArray("centerX", defaultValue);
-    	double[] yvals = table.getNumberArray("centerY", defaultValue);
-    	int avg = 0;
-    	for (int x= 0; x < xvals.length; x++)
-    	{
-    		if (yvals[x] > centreh + 40 || yvals[x] < centreh - 40)
-    		{
-    			continue;
-    		}
-    		avg += xvals[x];
-    	}
-    	avg/= xvals.length;
-    	int[] reference = new int[2];
-    	int counter = 0;
-    	for (int x = 0; x < areas.length && counter < 2; x++)
-    	{
-    		if (Math.abs(avg - xvals[x]) > 40 || Math.abs(centreh - yvals[x]) > 30)
-    		{
-    			continue;
-    		}
-    		else if (counter == 1)
-    		{
-    			if (Math.abs(xvals[reference[0]] - xvals[x]) < 5)
-    			{
-    				continue;
-    			}
-    		}
-    		else
-    		{
-    			reference [counter] = x;
-    			counter++;
-    		}
-    	}
-    	double out = accelPID.calcPIDDrive(dist*12, this.dist*12, 1);
-    	double ang;
-    	if (counter == 2)
-    	{
-    		ang = camPID.calcPID(centrew, (xvals[reference[0]] +xvals[reference[1]])/2, 1);
-    	}
-    	else
-    	{
-    		ang = 0;
-    	}
-    	drive.tankDrive(out+ang, out-ang);
-    }
-    
     public void driveStraight(double dist)
     {
     	double speed = 0.6;
@@ -204,7 +130,7 @@ public class Chassis extends Subsystem {
 //        this.updateaccel(prevtime, timenow);
 //        prevtime = mytimer.get();
     }
-    /*untested end */
+   
     public void updateaccel(double t0, double t1)
     {
     	acc = accel.getX()*32.2;
@@ -222,7 +148,6 @@ public class Chassis extends Subsystem {
     	
     	drive.arcadeDrive(0, 1);
     }
-    //this function is untested
     public void turnPID(double angle, double speed)
     {
 //    	boolean done = false;
