@@ -26,9 +26,7 @@ import org.opencv.objdetect.*;
 public class GripPipeline {
 
 	//Outputs
-	private Mat rgbThreshold0Output = new Mat();
-	private Mat rgbThreshold1Output = new Mat();
-	private Mat cvBitwiseOrOutput = new Mat();
+	private Mat hslThresholdOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
@@ -40,27 +38,15 @@ public class GripPipeline {
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
 	public void process(Mat source0) {
-		// Step RGB_Threshold0:
-		Mat rgbThreshold0Input = source0;
-		double[] rgbThreshold0Red = {25.373133950269043, 115.72384621068439};
-		double[] rgbThreshold0Green = {53.9179119128567, 138.00944008782787};
-		double[] rgbThreshold0Blue = {20.630600246804914, 157.43870074673168};
-		rgbThreshold(rgbThreshold0Input, rgbThreshold0Red, rgbThreshold0Green, rgbThreshold0Blue, rgbThreshold0Output);
-
-		// Step RGB_Threshold1:
-		Mat rgbThreshold1Input = source0;
-		double[] rgbThreshold1Red = {0.0, 82.2968255167715};
-		double[] rgbThreshold1Green = {25.612048914203537, 136.94935795887852};
-		double[] rgbThreshold1Blue = {20.80979475193778, 102.08747835431957};
-		rgbThreshold(rgbThreshold1Input, rgbThreshold1Red, rgbThreshold1Green, rgbThreshold1Blue, rgbThreshold1Output);
-
-		// Step CV_bitwise_or0:
-		Mat cvBitwiseOrSrc1 = rgbThreshold0Output;
-		Mat cvBitwiseOrSrc2 = rgbThreshold1Output;
-		cvBitwiseOr(cvBitwiseOrSrc1, cvBitwiseOrSrc2, cvBitwiseOrOutput);
+		// Step HSL_Threshold0:
+		Mat hslThresholdInput = source0;
+		double[] hslThresholdHue = {0.0, 180.0};
+		double[] hslThresholdSaturation = {207.9136719806589, 255.0};
+		double[] hslThresholdLuminance = {19.874102541868638, 255.0};
+		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
-		Mat findContoursInput = cvBitwiseOrOutput;
+		Mat findContoursInput = hslThresholdOutput;
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
 
@@ -82,27 +68,11 @@ public class GripPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a RGB_Threshold.
-	 * @return Mat output from RGB_Threshold.
+	 * This method is a generated getter for the output of a HSL_Threshold.
+	 * @return Mat output from HSL_Threshold.
 	 */
-	public Mat rgbThreshold0Output() {
-		return rgbThreshold0Output;
-	}
-
-	/**
-	 * This method is a generated getter for the output of a RGB_Threshold.
-	 * @return Mat output from RGB_Threshold.
-	 */
-	public Mat rgbThreshold1Output() {
-		return rgbThreshold1Output;
-	}
-
-	/**
-	 * This method is a generated getter for the output of a CV_bitwise_or.
-	 * @return Mat output from CV_bitwise_or.
-	 */
-	public Mat cvBitwiseOrOutput() {
-		return cvBitwiseOrOutput;
+	public Mat hslThresholdOutput() {
+		return hslThresholdOutput;
 	}
 
 	/**
@@ -123,28 +93,19 @@ public class GripPipeline {
 
 
 	/**
-	 * Segment an image based on color ranges.
-	 * @param input The image on which to perform the RGB threshold.
-	 * @param red The min and max red.
-	 * @param green The min and max green.
-	 * @param blue The min and max blue.
+	 * Segment an image based on hue, saturation, and luminance ranges.
+	 *
+	 * @param input The image on which to perform the HSL threshold.
+	 * @param hue The min and max hue
+	 * @param sat The min and max saturation
+	 * @param lum The min and max luminance
 	 * @param output The image in which to store the output.
 	 */
-	private void rgbThreshold(Mat input, double[] red, double[] green, double[] blue,
+	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
 		Mat out) {
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2RGB);
-		Core.inRange(out, new Scalar(red[0], green[0], blue[0]),
-			new Scalar(red[1], green[1], blue[1]), out);
-	}
-
-	/**
-	 * Computes the per channel or of two images.
-	 * @param src1 The first image to use.
-	 * @param src2 The second image to use.
-	 * @param dst the result image when the or is performed.
-	 */
-	private void cvBitwiseOr(Mat src1, Mat src2, Mat dst) {
-		Core.bitwise_or(src1, src2, dst);
+		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HLS);
+		Core.inRange(out, new Scalar(hue[0], lum[0], sat[0]),
+			new Scalar(hue[1], lum[1], sat[1]), out);
 	}
 
 	/**
