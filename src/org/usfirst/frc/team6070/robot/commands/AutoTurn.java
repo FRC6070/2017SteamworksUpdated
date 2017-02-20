@@ -32,7 +32,7 @@ public class AutoTurn extends Command {
     protected void execute() {
     	Robot.DriveBase.setdirection();
     	//Robot.DriveBase.resetGyro();
-    	Robot.DriveBase.turnPID(angle, 0.6);
+    	Robot.DriveBase.turnPID(angle, 0);
     	//Robot.DriveBase.resetAccel();
     }
 
@@ -44,8 +44,6 @@ public class AutoTurn extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	//Robot.DriveBase.resetGyro();
-    	Robot.DriveBase.accelPID.resetPID();
-    	Robot.DriveBase.gyroPID.resetPID();
     }
 
     // Called when another command which requires one or more of the same
