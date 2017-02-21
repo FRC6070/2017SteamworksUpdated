@@ -1,5 +1,9 @@
 package org.usfirst.frc.team6070.robot.commands;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.usfirst.frc.team6070.robot.GMFileWriter;
 import org.usfirst.frc.team6070.robot.OI;
 import org.usfirst.frc.team6070.robot.Robot;
 
@@ -17,6 +21,8 @@ public class startDriving extends Command {
 	int thing = 0;
 	int reverse = 1;
 	double slow = 0.6;
+	public GMFileWriter gMFileWriter = new GMFileWriter();
+	
     public startDriving() {
     	requires (Robot.DriveBase);
         // Use requires() here to declare subsystem dependencies
@@ -82,6 +88,17 @@ public class startDriving extends Command {
     	{
     		Robot.DriveBase.drive(thing * OI.xbox.getTriggerAxis(Hand.kRight), OI.xbox.getX(Hand.kRight));
     	}
+    }
+    
+    void runArrayValsThread(double[] element) {
+    	new Thread(() -> {
+    		try {
+				gMFileWriter.writeToFileWithDoubles(element);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}).start();
     }
 
     // Make this return true when this Command no longer needs to run execute()

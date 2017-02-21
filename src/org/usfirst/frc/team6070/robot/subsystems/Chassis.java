@@ -24,7 +24,7 @@ public class Chassis extends Subsystem {
 	Victor RF = new Victor (RobotMap.RightFront);
 	Victor RB = new Victor (RobotMap.RightBack);
 	
-	RobotDrive drive = new RobotDrive (LF, LB, RF, RB);
+	public RobotDrive drive = new RobotDrive (LF, LB, RF, RB);
 		 
 	Accelerometer accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
 	double acc = 0;

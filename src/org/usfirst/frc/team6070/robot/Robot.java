@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
 import org.usfirst.frc.team6070.robot.commands.*;
 import org.usfirst.frc.team6070.robot.subsystems.*;
 
@@ -21,15 +25,18 @@ import org.usfirst.frc.team6070.robot.subsystems.*;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	public ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
+	
 	public static OI oi;
 	public static Chassis DriveBase;
 	public static Climber climber;
 	public static GearBox gear;
+	
+	public GMFileWriter fileWriter = new GMFileWriter();
 
 	Command autonomousCommand;
 	public SendableChooser chooser = new SendableChooser();
-
 	
 	/**
 	 * This function is run when the robot is first started up and should be
