@@ -33,18 +33,17 @@ public class AutoGearing extends Command {
     		Robot.DriveBase.drive(0.4, 0);
     		Robot.gear.forwards();
     	}
-    	else if (mytimer.get() < 2)
+    	else if (mytimer.get() < 1.5)
     	{
     		Robot.gear.forwards();
     	}
-    	else if (mytimer.get() < 4.5 && !Robot.gear.isfullback())
-    	{
-    		Robot.gear.backwards();
-    	}
-    	
-    	else if (mytimer.get() < 4.8)
+    	else if (mytimer.get() < 1.8)
     	{
     		Robot.DriveBase.drive(-0.4, 0);
+    	}
+    	else if (mytimer.get() < 3.3 && !Robot.gear.isfullback())
+    	{
+    		Robot.gear.backwards();
     	}
     	else
     	{
