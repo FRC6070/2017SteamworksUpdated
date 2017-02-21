@@ -29,7 +29,12 @@ public class startDriving extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	control = SmartDashboard.getNumber("control", 0);
+    	control = SmartDashboard.getNumber("control",0);
+    	SmartDashboard.putNumber("Control val", control);
+    	if (OI.right.getTrigger())
+    	{
+    		Robot.DriveBase.resetAccel();
+    	}
     	if (OI.xbox.getTriggerAxis(Hand.kRight) > 0.8)
     	{
     		reverse = -1;
@@ -66,7 +71,7 @@ public class startDriving extends Command {
     		}
     		else
     		{
-    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright());
+    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright()*slow, true);
     		}
     	}
     	else if (control == 1)

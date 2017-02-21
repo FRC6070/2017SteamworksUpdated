@@ -16,7 +16,7 @@ public class AutoTurn extends Command {
     public AutoTurn(double angle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.DriveBase);
+    	//requires(Robot.DriveBase);
     	this.angle = angle;
     	mytime = new Timer();
     	mytime.reset();

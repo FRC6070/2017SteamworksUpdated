@@ -37,7 +37,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
 		chooser.addDefault("Default - for now autodrive 5 feet", new AutoDrive(5, 2));
 		chooser.addObject("Centre auto", new StephenAutonomous());
 		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
@@ -46,6 +45,7 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		DriveBase = new Chassis();
 		gear = new GearBox();
+		oi = new OI();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
 		CameraServer.getInstance().startAutomaticCapture("cam0",0).setResolution(640, 360);
