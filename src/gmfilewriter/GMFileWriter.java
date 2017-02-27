@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6070.robot;
+package gmfilewriter;
 
 import java.io.FileWriter;
 import java.io.IOException;
