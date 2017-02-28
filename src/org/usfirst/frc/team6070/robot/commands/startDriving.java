@@ -2,14 +2,15 @@ package org.usfirst.frc.team6070.robot.commands;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import org.usfirst.frc.team6070.robot.GMFileWriter;
 import org.usfirst.frc.team6070.robot.OI;
 import org.usfirst.frc.team6070.robot.Robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import gmfilewriter.GMFileWriter;
 
 /**
  *
@@ -21,7 +22,7 @@ public class startDriving extends Command {
 	int thing = 0;
 	int reverse = 1;
 	double slow = 0.6;
-	public GMFileWriter gMFileWriter = new GMFileWriter();
+	//public GMFileWriter gMFileWriter = new GMFileWriter();
 	
     public startDriving() {
     	requires (Robot.DriveBase);
@@ -73,7 +74,13 @@ public class startDriving extends Command {
     	{
     		if (reverse == -1)
     		{
-    			Robot.DriveBase.drive(OI.driveYright()*slow, OI.driveYleft()*slow, true);
+    			double oiDriveYRightDouble = OI.driveYright()*slow;
+    			double oiDriveYLeftDouble = OI.driveYleft()*slow;
+    			Robot.DriveBase.drive(oiDriveYRightDouble, oiDriveYLeftDouble, true);
+//    			ArrayList<Double> valueArray = new ArrayList<Double>();
+//    			valueArray.add(oiDriveYRightDouble);
+//    			valueArray.add(oiDriveYLeftDouble);
+//    			Robot.arrayOfArrayVals.add(valueArray);
     		}
     		else
     		{
@@ -90,14 +97,11 @@ public class startDriving extends Command {
     	}
     }
     
-    void runArrayValsThread(double[] element) {
+    void runArrayValsThread() {
     	new Thread(() -> {
-    		try {
-				gMFileWriter.writeToFileWithDoubles(element);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		while(!Thread.interrupted()) {
+                
+            }
     	}).start();
     }
 

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import gmfilewriter.GMFileWriter;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -26,14 +27,14 @@ import org.usfirst.frc.team6070.robot.subsystems.*;
  */
 public class Robot extends IterativeRobot {
 	
-	public ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
+	//public static ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
 	
 	public static OI oi;
 	public static Chassis DriveBase;
 	public static Climber climber;
 	public static GearBox gear;
 	
-	public GMFileWriter fileWriter = new GMFileWriter();
+	//public GMFileWriter fileWriter = new GMFileWriter();
 
 	Command autonomousCommand;
 	public SendableChooser chooser = new SendableChooser();
@@ -55,7 +56,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
-		CameraServer.getInstance().startAutomaticCapture("cam0",0).setResolution(640, 360);
+		CameraServer.getInstance().startAutomaticCapture("cam0", 0).setResolution(640, 360);
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -149,5 +150,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+	
+	public void autonomousRecordingRun() {
+		new Thread(() -> {
+			
+		}).start();
 	}
 }

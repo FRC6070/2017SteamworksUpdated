@@ -4,9 +4,11 @@ import org.usfirst.frc.team6070.robot.OI;
 import org.usfirst.frc.team6070.robot.RobotMap;
 import org.usfirst.frc.team6070.robot.commands.Gearforwards;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 /**
  *
@@ -17,6 +19,7 @@ public class GearBox extends Subsystem {
     // here. Call these from Commands.
 	public DigitalInput digi = new DigitalInput(0);
 	Talon gearing = new Talon(RobotMap.gearmanip);
+	//Potentiometer pot = new AnalogPotentiometer(1, 360, 30);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -43,6 +46,10 @@ public class GearBox extends Subsystem {
     {
     	gearing.set(0);
     }
+//    public double getPot()
+//    {
+//    	return pot.get();
+//    }
     public boolean isfullback()
     {
     	try 
