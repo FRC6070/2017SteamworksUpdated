@@ -10,11 +10,12 @@ import org.usfirst.frc.team6070.robot.Robot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import gmfilewriter.GMFileWriter;
+import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
 
 /**
- *
+ * Main Driving Class
  */
+@SuppressWarnings("unused")
 public class startDriving extends Command {
 
 	double control; 

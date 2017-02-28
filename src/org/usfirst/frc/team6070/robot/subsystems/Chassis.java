@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team6070.theory6PID.PIDController;
+import org.usfirst.frc.team6070.robot.theory6PID.PIDController;
 
 
 /**

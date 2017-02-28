@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import gmfilewriter.GMFileWriter;
+import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -25,6 +25,7 @@ import org.usfirst.frc.team6070.robot.subsystems.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+@SuppressWarnings("unused")
 public class Robot extends IterativeRobot {
 	
 	//public static ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
