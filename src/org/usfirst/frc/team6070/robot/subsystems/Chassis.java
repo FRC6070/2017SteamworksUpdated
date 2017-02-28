@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import theory6PID.PIDController;
+import org.usfirst.frc.team6070.theory6PID.PIDController;
 
 
 /**
@@ -77,7 +77,6 @@ public class Chassis extends Subsystem {
     {
     	anglefix = gyro.getAngle();
     	//anglefix = imu.getYaw();
-    	
     }
     
     public void getGyroPID()
@@ -133,7 +132,7 @@ public class Chassis extends Subsystem {
    
     public void updateaccel(double t0, double t1)
     {
-    	acc = accel.getX()*32.2;
+    	acc = Math.sqrt(Math.pow(accel.getX(), 2) + Math.pow(accel.getY(), 2))*32.2;
     	//System.out.println(acc);
     	vel += acc*(t1-t0);
     	dist += vel*(t1-t0);
@@ -172,7 +171,7 @@ public class Chassis extends Subsystem {
 //    	{
 //    		drive.arcadeDrive(0, 0);
 //    	}
-    	double ang = gyroPID.calcPID(angle, getGyroYaw(), 1);
+    	double ang = gyroPID.calcPID(angle%360, getGyroYaw()%360, 1);
     	drive.tankDrive(speed*angle, -speed*angle);
     }
     public void resetAccel()
