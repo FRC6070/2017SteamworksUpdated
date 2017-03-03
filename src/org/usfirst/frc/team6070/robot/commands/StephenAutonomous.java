@@ -21,17 +21,17 @@ public class StephenAutonomous extends CommandGroup {
     	//addSequential (new AutoDrive (2));
     	
     	if (driver){
-    		addSequential (new AutoTurn(90)); 
+    		addSequential (new AutoTurn(90, 2)); 
     		addSequential ((new AutoDrive(12, 5)));
-    		addSequential (new AutoTurn(-90));
+    		addSequential (new AutoTurn(-90, 2));
     		addSequential (new AutoDrive(33, 10));
     		
     		
     	}
     	else {
-    		addSequential (new AutoTurn (-90)); //
+    		addSequential (new AutoTurn (-90,2)); //
     		addSequential (new AutoDrive(12, 5));
-    		addSequential (new AutoTurn (90));
+    		addSequential (new AutoTurn (90, 2));
     		addSequential (new AutoDrive(33, 10));
     		
     		

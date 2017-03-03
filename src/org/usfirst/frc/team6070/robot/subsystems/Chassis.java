@@ -172,7 +172,7 @@ public class Chassis extends Subsystem {
 //    		drive.arcadeDrive(0, 0);
 //    	}
     	double ang = gyroPID.calcPID(angle%360, getGyroYaw()%360, 1);
-    	drive.tankDrive(speed*angle, -speed*angle);
+    	drive.tankDrive(speed*ang, -speed*ang);
     }
     public void resetAccel()
     {
