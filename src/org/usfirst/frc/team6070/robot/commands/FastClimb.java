@@ -23,20 +23,29 @@ public class FastClimb extends Command {
     protected void execute() {
     	if (OI.xbox.getAButton())
     	{
+    		// slow
     		Robot.climber.climb(1);
     	}
     	else if (OI.xbox.getBButton())
     	{
+    		// normal
     		Robot.climber.climb(2);
     	}
     	else if (OI.xbox.getYButton())
     	{
+    		// fast
     		Robot.climber.climb(3);
     	}
     	else if (OI.xbox.getXButton())
     	{
-    		Robot.climber.climb(-1);
+    		// Speed that 1241 flipped over at
+    		Robot.climber.climb(4);
     	}
+    	//NO GOING BACK
+//    	else if (OI.xbox.getXButton())
+//    	{
+//    		Robot.climber.climb(-1);
+//    	}
     	else
     	{
     		Robot.climber.climb(0);
