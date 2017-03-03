@@ -38,11 +38,8 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DriveBase.driveStraight(dist);
-    	timenow = mytimer.get();
-    	Robot.DriveBase.updateaccel(timeprev, timenow);
-    	timeprev = timenow;
-    	
+    	double interval = Robot.DriveBase.driveStraight(dist);
+    	Robot.DriveBase.updateaccel(interval);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -56,6 +53,8 @@ public class AutoDrive extends Command {
     	Robot.DriveBase.resetAccel();
     	Robot.DriveBase.accelPID.resetPID();
     	Robot.DriveBase.gyroPID.resetPID();
+    	mytimer.stop();
+    	mytimer.reset();
     }
 
     // Called when another command which requires one or more of the same

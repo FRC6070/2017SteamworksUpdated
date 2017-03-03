@@ -24,6 +24,8 @@ public class Chassis extends Subsystem {
 	Victor RF = new Victor (RobotMap.RightFront);
 	Victor RB = new Victor (RobotMap.RightBack);
 	
+	Timer mytimer = new Timer();
+	
 	public RobotDrive drive = new RobotDrive (LF, LB, RF, RB);
 		 
 	Accelerometer accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
@@ -50,10 +52,10 @@ public class Chassis extends Subsystem {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
-    	drive.setInvertedMotor(MotorType.kFrontRight, true);
-    	drive.setInvertedMotor(MotorType.kRearRight, true);
-    	drive.setInvertedMotor(MotorType.kFrontLeft, true);
-    	drive.setInvertedMotor(MotorType.kRearLeft, true);
+//    	drive.setInvertedMotor(MotorType.kFrontRight, true);
+//    	drive.setInvertedMotor(MotorType.kRearRight, true);
+//    	drive.setInvertedMotor(MotorType.kFrontLeft, true);
+//    	drive.setInvertedMotor(MotorType.kRearLeft, true);
     	gyro.reset();
     	//imu.reset();
     	anglefix = 0;
@@ -63,14 +65,14 @@ public class Chassis extends Subsystem {
     	setDefaultCommand(new startDriving());
     }
     
- 
-    public void drive (double y, double z){
+    public void drive (double y, double z)
+    {
     	drive.arcadeDrive(y, z);
     }
+    
     public void drive (double y, double z, boolean a)
     {
     	drive.tankDrive(y, z);
-    	
     }
     
     public void setdirection()
@@ -93,13 +95,17 @@ public class Chassis extends Subsystem {
     	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
     	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
     }
-    public void driveStraight(double dist)
+    public double driveStraight(double dist)
     {
+    	mytimer.reset();
+    	double startTime = mytimer.get();
     	double speed = 0.6;
     	double out = accelPID.calcPIDDrive(dist*12, this.dist*12, 2);
     	double ang = gyroPID.calcPID(anglefix, gyro.getAngle(), 1);
     	
     	drive.tankDrive((out+ang)*speed, (out-ang)*speed);
+    	double endTime = mytimer.get();
+    	return endTime-startTime;
 //    	Timer mytimer = new Timer();
 //    	double prevtime = 0;
 //    	double timenow = 0;
@@ -130,12 +136,12 @@ public class Chassis extends Subsystem {
 //        prevtime = mytimer.get();
     }
    
-    public void updateaccel(double t0, double t1)
+    public void updateaccel(double interval)
     {
     	acc = Math.sqrt(Math.pow(accel.getX(), 2) + Math.pow(accel.getY(), 2))*32.2;
     	//System.out.println(acc);
-    	vel += acc*(t1-t0);
-    	dist += vel*(t1-t0);
+    	vel += acc*interval;
+    	dist += vel*interval;
     }
     
     public void stop (){

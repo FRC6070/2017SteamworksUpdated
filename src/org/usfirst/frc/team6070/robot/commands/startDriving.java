@@ -23,6 +23,16 @@ public class startDriving extends Command {
 	int thing = 0;
 	int reverse = 1;
 	double slow = 0.6;
+	
+	double inputLeft;
+	double inputRight;
+	
+	double prevLeft = 0;
+	double prevRight = 0;
+	
+	private static final double DELTA_LIMIT = 0.8;
+	private static final double SPEED_UP_CONSTANT = 0.05;
+	private static final double SLOW_DOWN_CONSTANT = 0.05;
 	//public GMFileWriter gMFileWriter = new GMFileWriter();
 	
     public startDriving() {
@@ -37,8 +47,7 @@ public class startDriving extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	control = SmartDashboard.getNumber("control",0);
-    	SmartDashboard.putNumber("Control val", control);
+    	control = 0;
     	if (OI.right.getTrigger())
     	{
     		Robot.DriveBase.resetAccel();
@@ -73,11 +82,37 @@ public class startDriving extends Command {
     	}
     	if (control == 0)
     	{
+    		// Tank Drive
+    		inputRight = -OI.driveYright()*slow;
+			inputLeft = -OI.driveYleft()*slow;
+			
+			double deltaR = inputRight - prevRight;
+			double deltaL = inputLeft - prevLeft;
+			
+			if (deltaR >= DELTA_LIMIT)
+			{
+				inputRight -= SLOW_DOWN_CONSTANT;
+			}
+			else if (-deltaR >= DELTA_LIMIT)
+			{
+				inputRight += SPEED_UP_CONSTANT;
+			}
+			
+			if (deltaL >= DELTA_LIMIT)
+			{
+				inputLeft -= SLOW_DOWN_CONSTANT;
+			}
+			else if (-deltaL >= DELTA_LIMIT)
+			{
+				inputLeft += SPEED_UP_CONSTANT;
+			}
+			
+			prevRight = inputRight;
+			prevLeft = inputLeft;
+			
     		if (reverse == -1)
     		{
-    			double oiDriveYRightDouble = OI.driveYright()*slow;
-    			double oiDriveYLeftDouble = OI.driveYleft()*slow;
-    			Robot.DriveBase.drive(oiDriveYRightDouble, oiDriveYLeftDouble, true);
+    			Robot.DriveBase.drive(inputRight, inputLeft, true);
 //    			ArrayList<Double> valueArray = new ArrayList<Double>();
 //    			valueArray.add(oiDriveYRightDouble);
 //    			valueArray.add(oiDriveYLeftDouble);
@@ -85,16 +120,8 @@ public class startDriving extends Command {
     		}
     		else
     		{
-    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright()*slow, true);
+    			Robot.DriveBase.drive(inputLeft, inputRight, true);
     		}
-    	}
-    	else if (control == 1)
-    	{
-    		Robot.DriveBase.drive(OI.driveYright()*reverse*slow, OI.driveX()*slow);
-    	}
-    	else if (control == 2)
-    	{
-    		Robot.DriveBase.drive(thing * OI.xbox.getTriggerAxis(Hand.kRight), OI.xbox.getX(Hand.kRight));
     	}
     }
     
