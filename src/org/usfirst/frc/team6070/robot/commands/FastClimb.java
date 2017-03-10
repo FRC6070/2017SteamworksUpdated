@@ -38,7 +38,7 @@ public class FastClimb extends Command {
     	}
     	else if (OI.xbox.getXButton())
     	{
-    		// Speed that 1241 flipped over at
+    		// Speed that 1241 flipped over at // Karthik's driving speed
     		Robot.climber.climb(4);
     	}
     	//NO GOING BACK
