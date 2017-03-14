@@ -32,9 +32,9 @@ public class Chassis extends Subsystem {
 	public double dist = 0;
 	double anglefix;
 	
-	double kpgyro = 0.03;
+	double kpgyro = 0.1;
 	double kigyro = 0.0;
-	double kdgyro = 0.0;
+	double kdgyro = 0.02;
 	
 	double kpaccel = 0.7;
 	double kiaccel = 0.0;
@@ -81,9 +81,9 @@ public class Chassis extends Subsystem {
     
     public void getGyroPID()
     {
-    	kpgyro = SmartDashboard.getNumber("kpval", 0.03);
+    	kpgyro = SmartDashboard.getNumber("kpval", 0.1);
     	kigyro = SmartDashboard.getNumber("kival", 0.0);
-    	kdgyro = SmartDashboard.getNumber("kdval", 0.0);
+    	kdgyro = SmartDashboard.getNumber("kdval", 0.02);
     	gyroPID.changePIDGains(kpgyro, kigyro, kdgyro);
     }
     public void getAccelPID()
@@ -149,28 +149,6 @@ public class Chassis extends Subsystem {
     }
     public void turnPID(double angle, double speed)
     {
-//    	boolean done = false;
-//    	while (!done)
-//    	{
-//    		double ang = (gyro.getAngle() % 360);
-//    		//double ang = (imu.getYaw() % 360);
-//    		System.out.print("Angle current: ");
-//    		System.out.print(ang);
-//    		System.out.println();
-//    		if (angle-ang < 4)
-//    		{
-//    			done = true;
-//    			drive.arcadeDrive(0, 0);
-//    		}
-//    		else
-//    		{
-//    			drive.arcadeDrive(0, ((angle-ang)/(angle-anglefix))*0.5);
-//    		}
-//    	}
-//    	if (done)
-//    	{
-//    		drive.arcadeDrive(0, 0);
-//    	}
     	double ang = gyroPID.calcPID(angle%360, getGyroYaw()%360, 1);
     	drive.tankDrive(speed*ang, -speed*ang);
     }
