@@ -1,15 +1,21 @@
 package org.usfirst.frc.team6070.robot.commands;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.usfirst.frc.team6070.robot.OI;
 import org.usfirst.frc.team6070.robot.Robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
 
 /**
- *
+ * Main Driving Class
  */
+@SuppressWarnings("unused")
 public class startDriving extends Command {
 
 	double control; 
@@ -17,6 +23,8 @@ public class startDriving extends Command {
 	int thing = 0;
 	int reverse = 1;
 	double slow = 0.6;
+	//public GMFileWriter gMFileWriter = new GMFileWriter();
+	
     public startDriving() {
     	requires (Robot.DriveBase);
         // Use requires() here to declare subsystem dependencies
@@ -29,7 +37,12 @@ public class startDriving extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	control = SmartDashboard.getNumber("control", 0);
+    	control = SmartDashboard.getNumber("control",0);
+    	SmartDashboard.putNumber("Control val", control);
+    	if (OI.right.getTrigger())
+    	{
+    		Robot.DriveBase.resetAccel();
+    	}
     	if (OI.xbox.getTriggerAxis(Hand.kRight) > 0.8)
     	{
     		reverse = -1;
@@ -62,11 +75,17 @@ public class startDriving extends Command {
     	{
     		if (reverse == -1)
     		{
-    			Robot.DriveBase.drive(OI.driveYright()*slow, OI.driveYleft()*slow, true);
+    			double oiDriveYRightDouble = OI.driveYright()*slow;
+    			double oiDriveYLeftDouble = OI.driveYleft()*slow;
+    			Robot.DriveBase.drive(oiDriveYRightDouble, oiDriveYLeftDouble, true);
+//    			ArrayList<Double> valueArray = new ArrayList<Double>();
+//    			valueArray.add(oiDriveYRightDouble);
+//    			valueArray.add(oiDriveYLeftDouble);
+//    			Robot.arrayOfArrayVals.add(valueArray);
     		}
     		else
     		{
-    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright());
+    			Robot.DriveBase.drive(OI.driveYleft()*slow, OI.driveYright()*slow, true);
     		}
     	}
     	else if (control == 1)
@@ -77,6 +96,14 @@ public class startDriving extends Command {
     	{
     		Robot.DriveBase.drive(thing * OI.xbox.getTriggerAxis(Hand.kRight), OI.xbox.getX(Hand.kRight));
     	}
+    }
+    
+    void runArrayValsThread() {
+    	new Thread(() -> {
+    		while(!Thread.interrupted()) {
+                
+            }
+    	}).start();
     }
 
     // Make this return true when this Command no longer needs to run execute()

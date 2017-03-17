@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team6070.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -21,17 +22,17 @@ public class StephenAutonomous extends CommandGroup {
     	//addSequential (new AutoDrive (2));
     	
     	if (driver){
-    		addSequential (new AutoTurn(90)); 
+    		addSequential (new AutoTurn(90, 2)); 
     		addSequential ((new AutoDrive(12, 5)));
-    		addSequential (new AutoTurn(0));
+    		addSequential (new AutoTurn(-90, 2));
     		addSequential (new AutoDrive(33, 10));
     		
     		
     	}
     	else {
-    		addSequential (new AutoTurn (-90)); 
+    		addSequential (new AutoTurn (-90,2)); //
     		addSequential (new AutoDrive(12, 5));
-    		addSequential (new AutoTurn (0));
+    		addSequential (new AutoTurn (90, 2));
     		addSequential (new AutoDrive(33, 10));
     		
     		
@@ -61,4 +62,3 @@ public class StephenAutonomous extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
-}
