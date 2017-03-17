@@ -18,6 +18,7 @@ public class AutoDrive extends Command {
     public AutoDrive(double dist, double timeout) {
     	requires (Robot.DriveBase);
     	this.dist = dist;
+    	mytimer = new Timer();
     	mytimer.reset();
     	mytimer.start();
     	this.timeout = timeout;
