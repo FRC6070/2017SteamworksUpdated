@@ -94,13 +94,11 @@ public class Chassis extends Subsystem {
     	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
     	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
     }
-    public void driveStraight(double dist)
+    public void driveStraight()
+    
     {
-    	double speed = 0.6;
-    	double out = accelPID.calcPIDDrive(dist*12, this.dist*12, 2);
-    	double ang = gyroPID.calcPID(anglefix, gyro.getAngle(), 1);
+    	drive.tankDrive(0.6, 0.6, true);
     	
-    	drive.tankDrive((out+ang)*speed, (out-ang)*speed);
 //    	Timer mytimer = new Timer();
 //    	double prevtime = 0;
 //    	double timenow = 0;
