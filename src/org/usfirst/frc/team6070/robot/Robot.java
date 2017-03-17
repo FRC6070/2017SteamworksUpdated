@@ -9,14 +9,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.ArrayList;
-
-import org.opencv.videoio.*;
-import org.opencv.imgcodecs.*;
 
 import org.usfirst.frc.team6070.robot.commands.*;
 import org.usfirst.frc.team6070.robot.subsystems.*;
@@ -28,23 +20,16 @@ import org.usfirst.frc.team6070.robot.subsystems.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-@SuppressWarnings("unused")
 public class Robot extends IterativeRobot {
-	
-	//public static ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
-	
+
 	public static OI oi;
 	public static Chassis DriveBase;
 	public static Climber climber;
 	public static GearBox gear;
-	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
-	
-	Preferences pref;
-	
-	//public GMFileWriter fileWriter = new GMFileWriter();
 
 	Command autonomousCommand;
 	public SendableChooser chooser = new SendableChooser();
+
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,32 +37,23 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("No Auto", 0);
-		chooser.addObject("EZ 5 points", 1);
-		chooser.addObject("Centre auto", 2);
-		chooser.addObject("Red Right/Blue Left", 3);
-		chooser.addObject("Red left/Blue right", 4);
-		chooser.addObject("Thingy - autoturn to -30", 5);
-		chooser.addObject("Just spin - looks cool", 6);
-				
-		pref = Preferences.getInstance();
+		oi = new OI();
+		chooser.addDefault("Default - for now autodrive 5 feet", new AutoDrive(5, 2));
+		chooser.addObject("Centre auto", new StephenAutonomous());
+		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
+		chooser.addObject("Red left/Blue right", new StephenKenishaAuto());
+		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30));
 		climber = new Climber();
 		DriveBase = new Chassis();
 		gear = new GearBox();
-		oi = new OI();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
-		CameraServer.getInstance().startAutomaticCapture("cam0", 0).setResolution(640, 360);
-		VideoCapture vc = new VideoCapture(0);
-		if (vc.isOpened()) {
-//		    vc.set(Imgcodecs.CV_CAP_PROP_FRAME_WIDTH, 640);
-//		    vc.set(Imgcodecs., 480);
-		}
+		CameraServer.getInstance().startAutomaticCapture("cam0",0).setResolution(640, 360);
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(5, 2));
-		SmartDashboard.putData("Realign", new AutoTurn(90, 2));
+		SmartDashboard.putData("Realign", new AutoTurn(90));
 		SmartDashboard.putData("Chassis:", DriveBase);
 		
 //		SmartDashboard.putData("Gearback", new Gearbackwards());
@@ -90,54 +66,15 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	@Override
-	public void disabledInit() {
-
-	}
-
-	@Override
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-		int autochosen = (int)chooser.getSelected();
-		switch(autochosen)
-		{
-			case 0:
-			{
-				/* F*** this, none of our auto modes are working.*/
-				autonomousCommand = new NoAuto();
-			}
-			case 1:
-			{
-				/* EZ 5 points - Drive Forward*/
-				autonomousCommand = new EZ5(5);
-			}
-			case 2:
-			{
-				/* Centre Gear Auto */
-				autonomousCommand = new StephenAutonomous();
-			}
-			case 3:
-			{
-				/* Blue Left, Red Right Side Auto */
-				autonomousCommand = new K_Autonomous();
-			}
-			case 4:
-			{
-				/* Blue Right, Red Left Side Auto*/
-				autonomousCommand = new StephenKenishaAuto();
-			}
-			case 5:
-			{	/* This is a test. */
-				autonomousCommand = new AutoTurn(-30, 1);
-			}
-			case 6:
-			{
-				/* And you thought we were contributing to this alliance. LOL */
-				autonomousCommand = new Donuts(15);
-			}
-		}
-		updateSmartDashboard();
-	}
+//	@Override
+//	public void disabledInit() {
+//
+//	}
+//
+//	@Override
+//	public void disabledPeriodic() {
+//		Scheduler.getInstance().run();
+//	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
@@ -191,10 +128,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
+		SmartDashboard.putNumber("Accel", DriveBase.getAccel());
+		SmartDashboard.putNumber("Gyro", DriveBase.getGyroYaw());
+		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
 		//SmartDashboard.putDouble("IMU", DriveBase.imu.getAngle());
 		Scheduler.getInstance().run();
-		updateSmartDashboard();
 		
 	}
 
@@ -205,20 +143,4 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
-	
-	public void updateSmartDashboard()
-	{
-		SmartDashboard.putNumber("Accel", DriveBase.getAccel());
-		SmartDashboard.putNumber("Gyro", DriveBase.getGyroYaw());
-		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
-		SmartDashboard.putData("Chassis:", DriveBase);
-		
-//		SmartDashboard.putNumber(", value)
-	}
-	
-//	public void autonomousRecordingRun() {
-//		new Thread(() -> {
-//			
-//		}).start();
-//	}
 }

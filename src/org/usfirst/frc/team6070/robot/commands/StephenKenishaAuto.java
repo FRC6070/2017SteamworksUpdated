@@ -58,4 +58,3 @@ public class StephenKenishaAuto extends CommandGroup {
         // arm.
     }
 }
-

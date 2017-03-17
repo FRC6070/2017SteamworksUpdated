@@ -24,11 +24,11 @@ public class Gearforwards extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (OI.right.getY() < -0.8)
+    	if (OI.right.getY()>0.8)
     	{
     		Robot.gear.forwards();
     	}
-    	else if (OI.right.getY() > 0.8 && !Robot.gear.isfullback())
+    	else if (OI.right.getY() < -0.8 && !Robot.gear.isfullback())
     	{
     		Robot.gear.backwards();
     	}

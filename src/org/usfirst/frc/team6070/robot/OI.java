@@ -27,13 +27,13 @@ public class OI {
 		right = new Joystick(1);
 		
 		
-		button = new JoystickButton(right, 2);
+		button = new JoystickButton(xbox, 7);
 		
 		button.whenPressed(new AutoGearing());
 		button1 = new JoystickButton(xbox, 10);
 		button2 = new JoystickButton(xbox, 9);
-		button1.whenPressed(new AutoDrive(5, 20));
-		button2.whenPressed(new AutoTurn(90, 2));
+		button1.whenPressed(new AutoDrive(5, 2));
+		button2.whenPressed(new AutoTurn(90));
 		//slowclimb.whenPressed(new FastClimb(1));
 		//.slowclimb.whenReleased(new FastClimb(0));
 		
