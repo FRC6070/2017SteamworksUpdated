@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team6070.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -62,3 +61,4 @@ public class StephenAutonomous extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
+}
