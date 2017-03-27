@@ -15,26 +15,26 @@ public class StephenKenishaAuto extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential(new AutoDrive(9.35, 3.5)); // <--- wtf
+    	addSequential(new AutoDrive(1.5)); // <--- wtf
     	
     	if (driver){
     		addSequential(new AutoTurn(31.687, 1));
-        	addSequential (new AutoDrive(1.75, 1));
+        	addSequential (new AutoDrive(1));
         	//Gear
         	addSequential(new AutoGearing());
-        	addSequential (new AutoDrive(-5.328, 4));
+        	addSequential (new AutoDrive(2));
         	addSequential(new AutoTurn(58.765, 2));
-        	addSequential(new AutoDrive(32, 10));
+        	addSequential(new AutoDrive(10));
         	
         }else{
         	
         	addSequential(new AutoTurn(-31.687, 1));
-        	addSequential (new AutoDrive(1.75, 1));
+        	addSequential (new AutoDrive(2));
         	//Gear
         	addSequential (new AutoGearing());
-        	addSequential (new AutoDrive(-5.328, 4));
+        	addSequential (new AutoDrive(2));
         	addSequential(new AutoTurn(-58.765, 2));
-        	addSequential(new AutoDrive(32, 10));
+        	addSequential(new AutoDrive(10));
         	
         }
    

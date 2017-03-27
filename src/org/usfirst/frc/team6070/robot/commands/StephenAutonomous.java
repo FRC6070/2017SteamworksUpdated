@@ -16,23 +16,23 @@ public class StephenAutonomous extends CommandGroup {
     	}
     	//Okay I see, so use the if statement to add a set of commands one way, and another 
     	//yep
-    	addSequential (new AutoDrive (8,3));
-    	addSequential (new AutoGearing());
+    	addSequential (new AutoDrive (2.4));
+    	//addSequential (new AutoGearing());
     	//addSequential (new AutoDrive (2));
     	
     	if (driver){
     		addSequential (new AutoTurn(90, 2)); 
-    		addSequential ((new AutoDrive(12, 5)));
-    		addSequential (new AutoTurn(-90, 2));
-    		addSequential (new AutoDrive(33, 10));
+    		addSequential ((new AutoDrive(4)));
+    		addSequential (new AutoTurn(0, 2));
+    		addSequential (new AutoDrive(10));
     		
     		
     	}
     	else {
     		addSequential (new AutoTurn (-90,2)); //
-    		addSequential (new AutoDrive(12, 5));
-    		addSequential (new AutoTurn (90, 2));
-    		addSequential (new AutoDrive(33, 10));
+    		addSequential (new AutoDrive(4));
+    		addSequential (new AutoTurn (0, 2));
+    		addSequential (new AutoDrive(10));
     		
     		
     		}
