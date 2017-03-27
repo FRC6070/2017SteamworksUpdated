@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(3));
+		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(2));
 		SmartDashboard.putData("Realign", new AutoTurn(90, 2));
 		SmartDashboard.putData("Chassis:", DriveBase);
 		
