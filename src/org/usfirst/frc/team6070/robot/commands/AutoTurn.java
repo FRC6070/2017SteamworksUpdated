@@ -12,20 +12,19 @@ public class AutoTurn extends Command {
 
 	double angle;
 	boolean done = false;
-	Timer mytime;
-    public AutoTurn(double angle) {
+	double timeout;
+    public AutoTurn(double angle, double timeout) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	//requires(Robot.DriveBase);
+    	requires(Robot.DriveBase);
     	this.angle = angle;
-    	mytime = new Timer();
-    	mytime.reset();
-    	mytime.start();
+    	this.timeout = timeout;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	//Robot.DriveBase.resetGyro();
+    	setTimeout(timeout);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,7 +37,7 @@ public class AutoTurn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done || (mytime.get() > 3);
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
@@ -46,6 +45,7 @@ public class AutoTurn extends Command {
     	//Robot.DriveBase.resetGyro();
     	Robot.DriveBase.accelPID.resetPID();
     	Robot.DriveBase.gyroPID.resetPID();
+    	Robot.DriveBase.stop();
     }
 
     // Called when another command which requires one or more of the same

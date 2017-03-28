@@ -15,7 +15,7 @@ public class AutoGearing extends Command {
     public AutoGearing() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	//requires(Robot.gear);
+    	requires(Robot.gear);
     	this.done = false;
     }
 
