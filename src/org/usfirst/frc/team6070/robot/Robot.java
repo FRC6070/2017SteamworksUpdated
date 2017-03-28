@@ -52,27 +52,26 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("No Auto", 0);
-		chooser.addObject("EZ 5 points", 1);
-		chooser.addObject("Centre auto", 2);
-		chooser.addObject("Red Right/Blue Left", 3);
-		chooser.addObject("Red left/Blue right", 4);
-		chooser.addObject("Thingy - autoturn to -30", 5);
-		chooser.addObject("Just spin - looks cool", 6);
-				
-		pref = Preferences.getInstance();
 		climber = new Climber();
 		DriveBase = new Chassis();
 		gear = new GearBox();
 		oi = new OI();
+		chooser.addDefault("No Auto", new NoAuto());
+		chooser.addObject("Centre auto", new StephenAutonomous());
+		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
+		chooser.addObject("EZ 5 points", new EZ5(9));
+		chooser.addObject("Red left/Blue right", new StephenKenishaAuto());
+		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30, 2));
+		chooser.addObject("And You thought we were contributing to this alliance...", new Donuts(10));
+		pref = Preferences.getInstance();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
 		CameraServer.getInstance().startAutomaticCapture("cam0", 0).setResolution(640, 360);
-		VideoCapture vc = new VideoCapture(0);
-		if (vc.isOpened()) {
-//		    vc.set(Imgcodecs.CV_CAP_PROP_FRAME_WIDTH, 640);
-//		    vc.set(Imgcodecs., 480);
-		}
+//		VideoCapture vc = new VideoCapture(0);
+//		if (vc.isOpened()) {
+////		    vc.set(Imgcodecs.CV_CAP_PROP_FRAME_WIDTH, 640);
+////		    vc.set(Imgcodecs., 480);
+//		}
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -98,44 +97,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		int autochosen = (int)chooser.getSelected();
-		switch(autochosen)
-		{
-			case 0:
-			{
-				/* F*** this, none of our auto modes are working.*/
-				autonomousCommand = new NoAuto();
-			}
-			case 1:
-			{
-				/* EZ 5 points - Drive Forward*/
-				autonomousCommand = new EZ5(5);
-			}
-			case 2:
-			{
-				/* Centre Gear Auto */
-				autonomousCommand = new StephenAutonomous();
-			}
-			case 3:
-			{
-				/* Blue Left, Red Right Side Auto */
-				autonomousCommand = new K_Autonomous();
-			}
-			case 4:
-			{
-				/* Blue Right, Red Left Side Auto*/
-				autonomousCommand = new StephenKenishaAuto();
-			}
-			case 5:
-			{	/* This is a test. */
-				autonomousCommand = new AutoTurn(-30, 1);
-			}
-			case 6:
-			{
-				/* And you thought we were contributing to this alliance. LOL */
-				autonomousCommand = new Donuts(15);
-			}
-		}
 		updateSmartDashboard();
 	}
 
@@ -152,6 +113,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		DriveBase.resetGyro();
 		autonomousCommand = (Command) chooser.getSelected();
 
 		/*
@@ -209,7 +171,7 @@ public class Robot extends IterativeRobot {
 	public void updateSmartDashboard()
 	{
 		SmartDashboard.putNumber("Accel", DriveBase.getAccel());
-		SmartDashboard.putNumber("Gyro", DriveBase.getGyroYaw());
+		SmartDashboard.putNumber("Gyro val", DriveBase.getGyroYaw());
 		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
 		SmartDashboard.putData("Chassis:", DriveBase);
 		

@@ -12,13 +12,18 @@ public class AutoDrive extends Command {
 	
 	Timer mytimer;
 	double timeout;
-	
+	boolean backwards = false;
     public AutoDrive(double timeout) {
     	//requires (Robot.DriveBase);
     	this.timeout = timeout;
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    }
+    public AutoDrive(double timeout, boolean backwards)
+    {
+    	this.timeout = timeout;
+    	this.backwards = true;
     }
 
     // Called just before this Command runs the first time
@@ -29,7 +34,7 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DriveBase.driveStraight();
+    	Robot.DriveBase.driveStraight(backwards);
     	
     }
 

@@ -28,12 +28,12 @@ public class AutoGearing extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (mytimer.get() < 0.4)
+    	if (mytimer.get() < 0.6)
     	{
     		Robot.DriveBase.drive(0.4, 0);
-    		Robot.gear.forwards();
+    		//Robot.gear.forwards();
     	}
-    	else if (mytimer.get() < 1.5)
+    	else if (mytimer.get() < 1.)
     	{
     		Robot.gear.forwards();
     	}
@@ -41,7 +41,7 @@ public class AutoGearing extends Command {
     	{
     		Robot.DriveBase.drive(-0.4, 0);
     	}
-    	else if (mytimer.get() < 3.3 && !Robot.gear.isfullback())
+    	else if (mytimer.get() < 2.5 && !Robot.gear.isfullback())
     	{
     		Robot.gear.backwards();
     	}
@@ -60,6 +60,7 @@ public class AutoGearing extends Command {
     protected void end() {
     	mytimer.stop();
     	mytimer.reset();
+    	Robot.gear.stop();
     	done = false;
     }
 

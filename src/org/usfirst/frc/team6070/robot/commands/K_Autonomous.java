@@ -15,34 +15,19 @@ public class K_Autonomous extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential (new AutoDrive (2.4));
-    
+    	addSequential(new AutoDrive(1.5)); // <--- wtf
     	
-    	if (driver){
-    		addSequential (new AutoTurn(-28, 1)); 
-    		addSequential ((new AutoDrive(1.5)));
-    		// Gear Here
-    		//addSequential (new AutoGearing());
-    		addSequential (new AutoDrive(0.6));
-    		addSequential (new AutoTurn(62, 2));
-    		addSequential ((new AutoDrive(3)));
-    		addSequential (new AutoTurn(-41.92, 2));
-    		addSequential ((new AutoDrive(10)));
-    		
-    	}
-    	else {
-    		addSequential (new AutoTurn(28, 1)); 
-    		addSequential ((new AutoDrive(1.5)));
-    		// Gear Here
-    		//addSequential (new AutoGearing());
-    		addSequential (new AutoDrive(0.6));
-    		addSequential (new AutoTurn(-62, 2));
-    		addSequential ((new AutoDrive(3)));
-    		addSequential (new AutoTurn(41.92, 2));
-    		addSequential ((new AutoDrive(10)));
-    		
-    		
-    		}
+//    	if (driver){
+    		addSequential(new AutoTurn(-60, 1));
+        	addSequential (new AutoDrive(1));
+        	//Gear
+        	
+        	addSequential(new AutoGearing());
+        	addSequential (new AutoDrive(1, true));
+        	addSequential(new AutoTurn(60, 2));
+        	addSequential(new AutoDrive(1.5));
+        	addSequential(new AutoTurn(0, 1));
+        	
     	
     	// On red side (starting on the right), go straight, angle into gear, back out, go forward
     	//Then align with retreval zone, drive as far in the netural zone
