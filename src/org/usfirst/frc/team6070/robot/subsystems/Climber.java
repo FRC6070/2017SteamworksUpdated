@@ -44,12 +44,20 @@ public class Climber extends Subsystem {
     	{
     		climber1.set(0.3);
     		climber2.set(0.3);
+    	} else if (level == 4) {
+    		climber1.set(-0.4);
+    		climber2.set(-0.4);
     	}
     	else
     	{
     		climber1.set(0);
     		climber2.set(0);
     	}
+    }
+    
+    public void climbWithSpeed(double speed) {
+    	climber1.set(speed);
+    	climber2.set(speed);
     }
 }
 

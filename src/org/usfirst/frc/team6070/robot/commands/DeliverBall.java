@@ -1,60 +1,49 @@
 package org.usfirst.frc.team6070.robot.commands;
 
-import org.usfirst.frc.team6070.robot.*;
+import org.usfirst.frc.team6070.robot.OI;
+import org.usfirst.frc.team6070.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class FastClimb extends Command {
+public class DeliverBall extends Command {
 
-    public FastClimb() {
+	double timeOut;
+	double speed;
+    public DeliverBall(double timeOut, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.climber);
+    	this.timeOut = timeOut;
+    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(timeOut);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (OI.xbox.getAButton())
-    	{
-    		Robot.climber.climb(1);
-    	}
-    	else if (OI.xbox.getBButton())
-    	{
-    		Robot.climber.climb(2);
-    	}
-    	else if (OI.xbox.getYButton())
-    	{
-    		Robot.climber.climb(3);
-    	}
-    	else if (OI.xbox.getXButton())
-    	{
-    		Robot.climber.climb(4); // Change back to -1, currently for Ball test
-    	}
-    	else
-    	{
-    		Robot.climber.climb(0);
-    	}
-    	
+    	Robot.climber.climbWithSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.climber.climbWithSpeed(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

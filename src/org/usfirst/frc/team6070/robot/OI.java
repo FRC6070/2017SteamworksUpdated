@@ -14,6 +14,7 @@ import org.usfirst.frc.team6070.robot.commands.*;
 public class OI {
 	
 	public static XboxController xbox;
+	//public static XboxController xboxTest;
 	
 	public static Joystick right;
 	Button button;
@@ -24,6 +25,10 @@ public class OI {
 	
 	public OI () {
 		xbox = new XboxController(0);
+		
+		//Test
+		//xboxTest = new XboxController(3);
+		
 		right = new Joystick(1);
 		
 		
