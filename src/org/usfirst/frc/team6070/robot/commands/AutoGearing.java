@@ -33,7 +33,7 @@ public class AutoGearing extends Command {
     		Robot.DriveBase.drive(0.4, 0);
     		//Robot.gear.forwards();
     	}
-    	else if (mytimer.get() < 1.)
+    	else if (mytimer.get() < 1.0)
     	{
     		Robot.gear.forwards();
     	}

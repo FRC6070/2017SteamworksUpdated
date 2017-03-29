@@ -15,7 +15,7 @@ public class StephenKenishaAuto extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential(new AutoDrive(1.5)); // <--- wtf
+    	addSequential(new AutoDrive(1.2)); // <--- wtf
     	
 //    	if (driver){
     		addSequential(new AutoTurn(60, 1));

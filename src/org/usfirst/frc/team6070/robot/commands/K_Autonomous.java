@@ -8,25 +8,30 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class K_Autonomous extends CommandGroup {
     
-	boolean driver = false;
+	int driver = 1;
     public  K_Autonomous() {
         
     	if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
-    		driver = true;
+    		driver = -1;
     	}
     	
-    	addSequential(new AutoDrive(1.5)); // <--- wtf
+    	// move initial distance
+    	addSequential(new AutoDrive(1.2)); // <--- wtf
     	
-//    	if (driver){
-    		addSequential(new AutoTurn(-60, 1));
-        	addSequential (new AutoDrive(1));
-        	//Gear
-        	
-        	addSequential(new AutoGearing());
-        	addSequential (new AutoDrive(1, true));
-        	addSequential(new AutoTurn(60, 2));
-        	addSequential(new AutoDrive(1.5));
-        	addSequential(new AutoTurn(0, 1));
+    	// turn to 60 degrees (left on red, right on blue)
+    	//to line up with airship
+		addSequential(new AutoTurn(-60* driver, 1));
+		
+    	addSequential (new AutoDrive(1)); // drive into the lift
+    	//Gear
+    	
+    	addSequential(new AutoGearing());
+    	
+    	addSequential (new AutoDrive(1, true)); // back away
+    	addSequential(new AutoTurn(60*driver, 2)); // turn parallel to the airship, facing the neutral zone
+    	addSequential(new AutoDrive(1.5)); // clear the airship
+    	addSequential(new AutoTurn(-30*driver, 1)); // turn towards the retrieval zone
+    	addSequential (new AutoDrive(5)); // drive
         	
     	
     	// On red side (starting on the right), go straight, angle into gear, back out, go forward

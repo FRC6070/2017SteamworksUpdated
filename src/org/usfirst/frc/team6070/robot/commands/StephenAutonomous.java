@@ -8,23 +8,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class StephenAutonomous extends CommandGroup {
 
-	boolean driver;
+	int driver;
     public StephenAutonomous() {
-		driver = false;
+		driver = -1;
     	if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
-    		driver = true;
+    		driver = 1;
     	}
-    	//Okay I see, so use the if statement to add a set of commands one way, and another 
-    	//yep
-    	addSequential (new AutoDrive (1.8));
-    	addSequential (new AutoGearing());
-    	addSequential (new AutoDrive (0.4, true));
+    	addSequential (new AutoDrive (1.6)); // move forward
+    	addSequential (new AutoGearing()); // initialize gear
+    	addSequential (new AutoDrive (0.8, true)); // back away a bit
     	
-//    	if (driver){
-    		addSequential (new AutoTurn(90, 2)); 
-    		addSequential ((new AutoDrive(1)));
-    		addSequential (new AutoTurn(0, 2));
-    		//addSequential (new AutoDrive(10));
+    	/*  Turn 90 degrees left if you are on red
+    	 *  90 degrees right if you are on blue
+    	 */
+    	addSequential (new AutoTurn(90*driver, 2));
+    	addSequential ((new AutoDrive(1.8))); // clear the airship
+    	addSequential (new AutoTurn(0, 2)); // turn to 0 degrees, facing the retrieval zone
+    	addSequential (new AutoDrive(5)); // drive into the neutral zone, as far as possible without getting penalties
     	
     	// Go to right lift, deliver gear, back up, turn until parallel to airship, 
     	//move forward to clear airship, turn so that you are facing retrieval zone
