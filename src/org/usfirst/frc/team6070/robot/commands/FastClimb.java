@@ -23,7 +23,7 @@ public class FastClimb extends Command {
     protected void execute() {
     	if (OI.xbox.getAButton())
     	{
-    		Robot.climber.climb(1);
+    		Robot.climber.climbWithSpeed(0.25);
     	}
     	else if (OI.xbox.getBButton())
     	{

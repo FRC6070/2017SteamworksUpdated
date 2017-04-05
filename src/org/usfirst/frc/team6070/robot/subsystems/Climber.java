@@ -13,8 +13,8 @@ public class Climber extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Spark climber1 = new Spark(RobotMap.climber1);
-	Spark climber2 = new Spark(RobotMap.climber2);
+	Spark climber1 = new Spark(RobotMap.climber2);
+	//Spark climber2 = new Spark(RobotMap.climber2);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -27,37 +27,38 @@ public class Climber extends Subsystem {
     {
     	if (level == 1)
     	{
-    		climber1.set(-0.3);
-    		climber2.set(-0.3);
+    		climber1.set(0.3);
+    		//climber2.set(0.3);
     	}
     	else if (level == 2)
     	{
-    		climber1.set(-0.5);
-    		climber2.set(-0.5);
+    		climber1.set(0.5);
+    		//climber2.set(0.5);
     	}
     	else if (level == 3)
     	{
-    		climber1.set(-0.7);
-    		climber2.set(-0.7);
+    		climber1.set(1.0);
+    		//climber2.set(0.7);
     	}
     	else if (level == -1)
     	{
     		climber1.set(0.3);
-    		climber2.set(0.3);
-    	} else if (level == 4) {
-    		climber1.set(-0.4);
-    		climber2.set(-0.4);
+    		//climber2.set(0.3);
+    	}
+    	else if (level == 4) {
+    		climber1.set(0.4);
+    		//climber2.set(0.4);
     	}
     	else
     	{
     		climber1.set(0);
-    		climber2.set(0);
+    		//climber2.set(0);
     	}
     }
     
     public void climbWithSpeed(double speed) {
     	climber1.set(speed);
-    	climber2.set(speed);
+    	//climber2.set(speed);
     }
 }
 

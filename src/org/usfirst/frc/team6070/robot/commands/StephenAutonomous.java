@@ -14,7 +14,7 @@ public class StephenAutonomous extends CommandGroup {
     	if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
     		driver = 1;
     	}
-    	addSequential (new AutoDrive (1.6)); // move forward
+    	addSequential (new AutoDrive (2.3)); // move forward
     	addSequential (new AutoGearing()); // initialize gear
     	addSequential (new AutoDrive (0.8, true)); // back away a bit
     	
@@ -22,9 +22,9 @@ public class StephenAutonomous extends CommandGroup {
     	 *  90 degrees right if you are on blue
     	 */
     	addSequential (new AutoTurn(90*driver, 2));
-    	addSequential ((new AutoDrive(1.8))); // clear the airship
+    	addSequential ((new AutoDrive(2.2))); // clear the airship
     	addSequential (new AutoTurn(0, 2)); // turn to 0 degrees, facing the retrieval zone
-    	addSequential (new AutoDrive(5)); // drive into the neutral zone, as far as possible without getting penalties
+    	addSequential (new AutoDrive(3)); // drive into the neutral zone, as far as possible without getting penalties
     	
     	// Go to right lift, deliver gear, back up, turn until parallel to airship, 
     	//move forward to clear airship, turn so that you are facing retrieval zone

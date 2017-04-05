@@ -41,10 +41,10 @@ public class AutoGearing extends Command {
     	{
     		Robot.DriveBase.drive(-0.4, 0);
     	}
-    	else if (mytimer.get() < 2.5 && !Robot.gear.isfullback())
-    	{
-    		Robot.gear.backwards();
-    	}
+//    	else if (mytimer.get() < 2.5 && !Robot.gear.isfullback())
+//    	{
+//    		Robot.gear.backwards();
+//    	}
     	else
     	{
     		done = true;

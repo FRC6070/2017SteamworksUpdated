@@ -2,11 +2,14 @@
 package org.usfirst.frc.team6070.robot;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
@@ -46,6 +49,11 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	public SendableChooser chooser = new SendableChooser();
 	
+	UsbCamera camera1;
+	UsbCamera camera2;
+	VideoSink server;
+	
+	boolean frontCameraIsEnabled = false;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -58,9 +66,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
-		chooser.addObject("Red Right/Blue Left", new K_Autonomous());
-		chooser.addObject("EZ 5 points", new EZ5(9));
-		chooser.addObject("Red left/Blue right", new StephenKenishaAuto());
+		chooser.addObject("Right", new K_Autonomous());
+		chooser.addObject("EZ 5 points", new EZ5(3));
+		chooser.addObject("Left", new StephenKenishaAuto());
 		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30, 2));
 		chooser.addObject("And You thought we were contributing to this alliance...", new Donuts(10));
 		chooser.addObject("Deliver Balls", new DeliverBall(1, 0.25));
@@ -68,7 +76,11 @@ public class Robot extends IterativeRobot {
 		pref = Preferences.getInstance();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
-		CameraServer.getInstance().startAutomaticCapture("cam0", 0).setResolution(640, 360);
+		camera1 = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		camera2 = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+		server = CameraServer.getInstance().getServer();
+		
+		
 //		VideoCapture vc = new VideoCapture(0);
 //		if (vc.isOpened()) {
 ////		    vc.set(Imgcodecs.CV_CAP_PROP_FRAME_WIDTH, 640);
@@ -161,6 +173,18 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		
+		if(OI.xbox.getBumper(Hand.kLeft) && !frontCameraIsEnabled) {
+			System.out.print("Setting camera 2\n");
+			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
+			server.setSource(camera2);
+			System.out.print(camera2.getName());
+		} else if (!OI.xbox.getBumper(Hand.kLeft) && frontCameraIsEnabled) {
+			System.out.print("Setting camera 1\n");
+			//NetworkTable.getTable("").putString("CameraChoice", "cam0");
+			server.setSource(camera1);
+			System.out.print(camera1.getName());
+		}
+		frontCameraIsEnabled = OI.xbox.getBumper(Hand.kLeft);
 	}
 
 	/**
