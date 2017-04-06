@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Stabilizer extends Subsystem {
 	
-	Spark climber2 = new Spark(RobotMap.climber2);
+	Spark climber2 = new Spark(RobotMap.climber1);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
