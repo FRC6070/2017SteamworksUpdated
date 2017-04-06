@@ -4,7 +4,7 @@ import org.usfirst.frc.team6070.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import org.usfirst.frc.team6070.robot.commands.*;
 /**
  *
  */
@@ -17,7 +17,7 @@ public class Stabilizer extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new OpenGearWindow());
     }
     
     public void OpenGearWindow(double speed){

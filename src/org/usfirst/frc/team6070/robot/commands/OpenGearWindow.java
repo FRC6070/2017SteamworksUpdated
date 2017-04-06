@@ -2,7 +2,10 @@ package org.usfirst.frc.team6070.robot.commands;
 
 import org.usfirst.frc.team6070.robot.Robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team6070.robot.*;
+import org.usfirst.frc.team6070.robot.subsystems.*;
 
 /**
  *
@@ -20,7 +23,9 @@ public class OpenGearWindow extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.gearwindow.OpenGearWindow(0.25);
+    	if (OI.xbox.getBumper(Hand.kRight)) {
+    		Robot.gearwindow.OpenGearWindow(0.1);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
