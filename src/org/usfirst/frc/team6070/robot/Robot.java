@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
 	public static Climber climber;
 	public static GearBox gear;
 	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
+	public static Stabilizer gearwindow;
 	
 	Preferences pref;
 	
@@ -60,6 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		gearwindow = new Stabilizer();
 		climber = new Climber();
 		DriveBase = new Chassis();
 		gear = new GearBox();
@@ -173,12 +175,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		
-		if(OI.xbox.getBumper(Hand.kLeft) && !frontCameraIsEnabled) {
+		if(OI.right.getTrigger() && !frontCameraIsEnabled) {
 			System.out.print("Setting camera 2\n");
 			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
 			server.setSource(camera2);
 			System.out.print(camera2.getName());
-		} else if (!OI.xbox.getBumper(Hand.kLeft) && frontCameraIsEnabled) {
+		} else if (!OI.right.getTrigger() && frontCameraIsEnabled) {
 			System.out.print("Setting camera 1\n");
 			//NetworkTable.getTable("").putString("CameraChoice", "cam0");
 			server.setSource(camera1);
