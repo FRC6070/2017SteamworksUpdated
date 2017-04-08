@@ -20,7 +20,7 @@ public class Stabilizer extends Subsystem {
         setDefaultCommand(new OpenGearWindow());
     }
     
-    public void OpenGearWindow(double speed){
+    public void moveWindow(double speed){
     	climber2.set(speed);
     }
     

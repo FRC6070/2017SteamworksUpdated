@@ -96,6 +96,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Realign", new AutoTurn(90, 2));
 		SmartDashboard.putData("Chassis:", DriveBase);
 		
+		// Right Joystick Throttle Value
+		SmartDashboard.putNumber("Joystick Throttle Value", OI.right.getRawAxis(2));
+		
 //		SmartDashboard.putData("Gearback", new Gearbackwards());
 //		SmartDashboard.putData("Gearforwards", new Gearforwards());
 		
@@ -115,6 +118,9 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		
+		runCameraSystem();
+		
 	}
 
 	/**
@@ -175,18 +181,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		
-		if(OI.right.getTrigger() && !frontCameraIsEnabled) {
-			System.out.print("Setting camera 2\n");
-			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
-			server.setSource(camera2);
-			System.out.print(camera2.getName());
-		} else if (!OI.right.getTrigger() && frontCameraIsEnabled) {
-			System.out.print("Setting camera 1\n");
-			//NetworkTable.getTable("").putString("CameraChoice", "cam0");
-			server.setSource(camera1);
-			System.out.print(camera1.getName());
-		}
-		frontCameraIsEnabled = OI.xbox.getBumper(Hand.kLeft);
+		runCameraSystem();
 	}
 
 	/**
@@ -204,7 +199,25 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
 		SmartDashboard.putData("Chassis:", DriveBase);
 		
+		// Right Joystick Throttle Value
+		SmartDashboard.putNumber("Joystick Throttle Value", OI.right.getRawAxis(2));
+		
 //		SmartDashboard.putNumber(", value)
+	}
+	
+	public void runCameraSystem() {
+		if(OI.right.getRawButton(1) && !frontCameraIsEnabled) {
+			System.out.print("Setting camera 2\n");
+			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
+			server.setSource(camera2);
+			System.out.print(camera2.getName());
+		} else if (!OI.right.getRawButton(1) && frontCameraIsEnabled) {
+			System.out.print("Setting camera 1\n");
+			//NetworkTable.getTable("").putString("CameraChoice", "cam0");
+			server.setSource(camera1);
+			System.out.print(camera1.getName());
+		}
+		frontCameraIsEnabled = OI.right.getRawButton(1);
 	}
 	
 //	public void autonomousRecordingRun() {
@@ -212,4 +225,7 @@ public class Robot extends IterativeRobot {
 //			
 //		}).start();
 //	}
+	public void yell(String phrase) {
+		//System.out.
+	}
 }

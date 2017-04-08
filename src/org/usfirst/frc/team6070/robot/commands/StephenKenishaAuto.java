@@ -15,21 +15,21 @@ public class StephenKenishaAuto extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential(new AutoDrive(1.8)); // <--- wtf
+    	addSequential(new AutoDrive(2.1)); // <--- wtf
     	
 //    	if (driver){
-    		addSequential(new AutoTurn(50, 2));
+    		addSequential(new AutoTurn(60, 2));
         	addSequential (new AutoDrive(1));
         	//Gear
         	
         	addSequential(new AutoGearing());
-        	/*
+        	
         	addSequential (new AutoDrive(1, true));
         	addSequential(new AutoTurn(-50, 2));
         	addSequential(new AutoDrive(1.5));
         	addSequential(new AutoTurn(0, 2));
         	addSequential(new AutoDrive(3));
-        	*/
+        	
    
     	//Red side (left), forward, turn, gear, back, turn netural zone
     	//Blue side (right) as it is mirrored

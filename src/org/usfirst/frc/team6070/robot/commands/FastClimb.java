@@ -21,11 +21,11 @@ public class FastClimb extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (OI.xbox.getAButton())
+    	/*if (OI.right.getRawButton(6))
     	{
     		Robot.climber.climbWithSpeed(0.25);
     	}
-    	else if (OI.xbox.getBButton())
+    	else if (OI.right.getRawButton(7))
     	{
     		Robot.climber.climb(2);
     	}
@@ -40,8 +40,9 @@ public class FastClimb extends Command {
     	else
     	{
     		Robot.climber.climb(0);
-    	}
+    	}*/
     	
+    	Robot.climber.climbWithSpeed(-(OI.right.getRawAxis(2)+1)/2);
     }
 
     // Make this return true when this Command no longer needs to run execute()
