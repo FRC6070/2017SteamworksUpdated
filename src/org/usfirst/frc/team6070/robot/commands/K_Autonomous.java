@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6070.robot.commands;
 
+import org.usfirst.frc.team6070.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,11 +18,11 @@ public class K_Autonomous extends CommandGroup {
     	}
     	
     	// move initial distance
-    	addSequential(new AutoDrive(1.8)); // <--- wtf
+    	addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
     	
     	// turn to 60 degrees (left on red, right on blue)
     	//to line up with airship
-		addSequential(new AutoTurn(-50, 2));
+		addSequential(new AutoTurn(-RobotMap.turnangle, 2));
 		
     	addSequential (new AutoDrive(1)); // drive into the lift
     	//Gear

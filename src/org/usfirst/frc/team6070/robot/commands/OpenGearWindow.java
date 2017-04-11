@@ -23,8 +23,16 @@ public class OpenGearWindow extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (OI.xbox.getBumper(Hand.kRight)) {
-    		Robot.gearwindow.OpenGearWindow(0.1);
+    	if (OI.right.getRawButton(4)) {
+    		Robot.gearwindow.OpenGearWindow(0.3);
+    	}
+    	else if (OI.right.getRawButton(5))
+    	{
+    		Robot.gearwindow.OpenGearWindow(-0.3);
+    	}
+    	else
+    	{
+    		Robot.gearwindow.OpenGearWindow(0);
     	}
     }
 

@@ -20,6 +20,9 @@ public class RobotMap {
 	
 	public static int gearisthere = 7;
 	
+	public static double forwardval = 2.0;
+	public static double turnangle = 60.0;
+	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;

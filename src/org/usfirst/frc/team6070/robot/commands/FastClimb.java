@@ -21,26 +21,7 @@ public class FastClimb extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (OI.xbox.getAButton())
-    	{
-    		Robot.climber.climbWithSpeed(0.25);
-    	}
-    	else if (OI.xbox.getBButton())
-    	{
-    		Robot.climber.climb(2);
-    	}
-    	else if (OI.xbox.getYButton())
-    	{
-    		Robot.climber.climb(3);
-    	}
-    	else if (OI.xbox.getXButton())
-    	{
-    		Robot.climber.climb(4); // Change back to -1, currently for Ball test
-    	}
-    	else
-    	{
-    		Robot.climber.climb(0);
-    	}
+    	Robot.climber.climbWithSpeed(-((OI.right.getRawAxis(2)-1))/2);
     	
     }
 

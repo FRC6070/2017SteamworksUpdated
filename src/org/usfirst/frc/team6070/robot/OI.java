@@ -18,9 +18,6 @@ public class OI {
 	
 	public static Joystick right;
 	Button button;
-	Button button1;
-	Button button2;
-	
 	
 	
 	public OI () {
@@ -35,10 +32,6 @@ public class OI {
 		button = new JoystickButton(right, 2);
 		
 		button.whenPressed(new AutoGearing());
-		button1 = new JoystickButton(xbox, 10);
-		button2 = new JoystickButton(xbox, 9);
-		button1.whenPressed(new AutoDrive(2));
-		button2.whenPressed(new AutoTurn(0, 2));
 		//slowclimb.whenPressed(new FastClimb(1));
 		//.slowclimb.whenReleased(new FastClimb(0));
 		

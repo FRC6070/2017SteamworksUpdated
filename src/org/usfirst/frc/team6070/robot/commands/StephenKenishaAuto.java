@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6070.robot.commands;
 
+import org.usfirst.frc.team6070.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,10 +17,10 @@ public class StephenKenishaAuto extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential(new AutoDrive(1.8)); // <--- wtf
+    	addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
     	
 //    	if (driver){
-    		addSequential(new AutoTurn(50, 2));
+    		addSequential(new AutoTurn(RobotMap.turnangle, 2));
         	addSequential (new AutoDrive(1));
         	//Gear
         	

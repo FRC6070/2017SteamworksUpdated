@@ -35,6 +35,7 @@ public class AutoGearing extends Command {
     	}
     	else if (mytimer.get() < 1.0)
     	{
+    		Robot.DriveBase.stop();
     		Robot.gear.forwards();
     	}
     	else if (mytimer.get() < 1.8)
