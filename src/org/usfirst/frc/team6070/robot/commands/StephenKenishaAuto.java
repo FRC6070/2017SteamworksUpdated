@@ -17,7 +17,7 @@ public class StephenKenishaAuto extends CommandGroup {
     		driver = true;
     	}
     	
-    	addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
+    	addSequential(new AutoDriveWithGyro(RobotMap.forwardval, 0, false)); // <--- wtf
     	
 //    	if (driver){
     		addSequential(new AutoTurn(RobotMap.turnangle, 2));
