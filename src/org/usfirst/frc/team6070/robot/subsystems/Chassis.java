@@ -93,6 +93,11 @@ public class Chassis extends Subsystem {
     	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
     	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
     }
+    public void driveStraightWithGyro(boolean backwards, double angle)
+    {
+    	double mod = gyroPID.calcPID(angle, gyro.getAngle(), 0.5);
+    	drive.arcadeDrive(0.6, -mod);
+    }
     public void driveStraight(boolean backwards)
     {
     	//double mod = gyroPID.calcPID(an, gyro.getAngle(), 0.5);
