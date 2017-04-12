@@ -28,9 +28,13 @@ public class Gearforwards extends Command {
     	{
     		Robot.gear.forwards();
     	}
-    	else if (OI.right.getY() > 0.8 && !Robot.gear.isfullback())
+    	else if (OI.right.getY() < -0.4)
     	{
-    		Robot.gear.backwards();
+    		Robot.gear.foreslow();
+    	}
+    	else if (OI.right.getY() > 0.4 && !Robot.gear.isfullback())
+    	{
+    		Robot.gear.backslow();
     	}
     	else
     	{
