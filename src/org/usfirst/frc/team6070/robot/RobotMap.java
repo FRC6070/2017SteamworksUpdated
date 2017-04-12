@@ -20,10 +20,16 @@ public class RobotMap {
 	
 	public static int gearisthere = 7;
 	
-	public static double forwardval = 2.0;
+	public static double forwardval = 2.5;
 	public static double turnangle = 60.0;
 	
-	public static double forwardthing = 80.0;
+	public static double forwardthing = 84.7;
+	
+	public static final int driveWheelRadius = 3;//wheel radius in inches
+	public static final int drivePulsePerRotation = 256; //encoder pulse per rotation
+	public static final double driveGearRatio = 1/1; //ratio between wheel and encoder
+	public static final double driveEncoderPulsePerRot = drivePulsePerRotation*driveGearRatio; //pulse per rotation * gear ratio
+	public static final double driveEncoderDistPerTick =(Math.PI*2*driveWheelRadius)/driveEncoderPulsePerRot;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;

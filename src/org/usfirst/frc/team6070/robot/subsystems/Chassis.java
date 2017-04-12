@@ -65,6 +65,8 @@ public class Chassis extends Subsystem {
     	gyro.reset();
     	//imu.reset();
     	anglefix = 0;
+    	leftenc.setDistancePerPulse(RobotMap.driveEncoderDistPerTick);
+    	rightenc.setDistancePerPulse(RobotMap.driveEncoderDistPerTick);
     	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -101,6 +103,7 @@ public class Chassis extends Subsystem {
     	kdaccel = SmartDashboard.getNumber("kdacc", 0.0);
     	accelPID.changePIDGains(kpaccel, kiaccel, kdaccel);
     }
+    
     public void driveStraightWithGyro(boolean backwards, double angle)
     {
     	double mod = gyroPID.calcPID(angle, gyro.getAngle(), 0.5);
@@ -124,34 +127,6 @@ public class Chassis extends Subsystem {
     	{
     		drive.tankDrive(-0.6, -0.6);
     	}
-//    	Timer mytimer = new Timer();
-//    	double prevtime = 0;
-//    	double timenow = 0;
-//    	mytimer.reset();
-//    	mytimer.start();
-//    	while (!done)
-//    	{
-//    		if (dist - this.dist > 5)
-//        	{
-//        		speed = 0.8;
-//        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2 *0.7);
-//        	}
-//        	else if (dist - this.dist < 0.1)
-//        	{
-//        		speed = 0.0;
-//        		done = true;
-//        		drive.arcadeDrive(0,0);
-//        	}
-//        	else
-//        	{
-//        		speed = (dist - this.dist)*0.2;
-//        		drive.arcadeDrive(-speed, (anglefix-driveangle)*0.2);
-//        	}
-//    		
-//    	}
-//    	timenow = mytimer.get();
-//        this.updateaccel(prevtime, timenow);
-//        prevtime = mytimer.get();
     }
    
     public void updateaccel(double t0, double t1)
@@ -190,7 +165,7 @@ public class Chassis extends Subsystem {
     }
     public double getAvgDist()
     {
-    	return (leftenc.get()+rightenc.get())/2;
+    	return (leftenc.getDistance()+rightenc.getDistance())/2;
     }
     public void resetEncoders()
     {

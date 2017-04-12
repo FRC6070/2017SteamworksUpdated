@@ -40,6 +40,7 @@ public class AutoDrive extends Command {
     protected void initialize() 
     {
     	setTimeout(timeout);
+    	Robot.DriveBase.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
