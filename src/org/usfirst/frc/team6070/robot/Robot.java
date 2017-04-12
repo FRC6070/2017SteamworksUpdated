@@ -37,6 +37,8 @@ public class Robot extends IterativeRobot {
 	//public static ArrayList<ArrayList<Double>> arrayOfArrayVals = new ArrayList<ArrayList<Double>>();
 	
 	public static OI oi;
+	
+	// Initialize all Subsystems
 	public static Chassis DriveBase;
 	public static Climber climber;
 	public static GearBox gear;
@@ -66,6 +68,8 @@ public class Robot extends IterativeRobot {
 		DriveBase = new Chassis();
 		gear = new GearBox();
 		oi = new OI();
+		
+		// Setting Auto Options for the Chooser
 		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
 		chooser.addObject("Right", new K_Autonomous());
@@ -78,6 +82,8 @@ public class Robot extends IterativeRobot {
 		pref = Preferences.getInstance();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
+		
+		// Camera Setup
 		camera1 = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 		camera2 = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 		server = CameraServer.getInstance().getServer();
@@ -89,6 +95,7 @@ public class Robot extends IterativeRobot {
 ////		    vc.set(Imgcodecs., 480);
 //		}
 		
+		// Adding Elements to the Java SmartDashboard
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("DriveStraight for 5:", new AutoDrive(2));
@@ -175,6 +182,18 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		
+		runCameraSystem();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	@Override
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+	
+	public void runCameraSystem() {
 		if(OI.right.getRawButton(1) && !frontCameraIsEnabled) {
 			System.out.print("Setting camera 2\n");
 			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
@@ -187,14 +206,6 @@ public class Robot extends IterativeRobot {
 			System.out.print(camera1.getName());
 		}
 		frontCameraIsEnabled = OI.right.getRawButton(1);
-	}
-
-	/**
-	 * This function is called periodically during test mode
-	 */
-	@Override
-	public void testPeriodic() {
-		LiveWindow.run();
 	}
 	
 	public void updateSmartDashboard()
