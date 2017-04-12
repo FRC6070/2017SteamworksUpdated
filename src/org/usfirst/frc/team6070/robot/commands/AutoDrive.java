@@ -13,6 +13,8 @@ public class AutoDrive extends Command {
 	Timer mytimer;
 	double timeout;
 	boolean backwards = false;
+	boolean withenc = false;
+	double dist = 0;
     public AutoDrive(double timeout) {
     	//requires (Robot.DriveBase);
     	this.timeout = timeout;
@@ -25,6 +27,14 @@ public class AutoDrive extends Command {
     	this.timeout = timeout;
     	this.backwards = true;
     }
+    
+    public AutoDrive(double dist, double timeout, boolean backwards)
+    {
+    	this.timeout = timeout;
+    	this.dist = dist;
+    	this.backwards = backwards;
+    	withenc = true;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() 
@@ -34,8 +44,14 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DriveBase.driveStraight(backwards);
-    	
+    	if (withenc)
+    	{
+    		Robot.DriveBase.driveStraightDist(dist, 0);
+    	}
+    	else
+    	{
+    		Robot.DriveBase.driveStraight(backwards);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

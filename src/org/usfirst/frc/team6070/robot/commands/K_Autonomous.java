@@ -18,8 +18,8 @@ public class K_Autonomous extends CommandGroup {
     	}
     	
     	// move initial distance
-    	addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
-    	
+    	//addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
+    	addSequential(new AutoDrive(RobotMap.forwardthing, RobotMap.forwardval, false));
     	// turn to 60 degrees (left on red, right on blue)
     	//to line up with airship
 		addSequential(new AutoTurn(-RobotMap.turnangle, 2));

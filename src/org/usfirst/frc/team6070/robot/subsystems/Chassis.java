@@ -40,8 +40,16 @@ public class Chassis extends Subsystem {
 	double kiaccel = 0.0;
 	double kdaccel = 0.0;
 	
+	double kpdrive = 0.1;
+	double kidrive = 0.0;
+	double kddrive = 0.0;
+	
+	Encoder leftenc = new Encoder(1,2, false, Encoder.EncodingType.k4X);
+	Encoder rightenc = new Encoder(3, 4, false, Encoder.EncodingType.k4X);
+	
 	public PIDController gyroPID = new PIDController(kpgyro, kigyro, kdgyro);
 	public PIDController accelPID = new PIDController(kpaccel, kiaccel, kdaccel);
+	public PIDController drivePID = new PIDController(kpdrive, kidrive, kddrive);
 	
 //	ADIS16448_IMU gyro = new ADIS16448_IMU();
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -96,8 +104,15 @@ public class Chassis extends Subsystem {
     public void driveStraightWithGyro(boolean backwards, double angle)
     {
     	double mod = gyroPID.calcPID(angle, gyro.getAngle(), 0.5);
-    	drive.arcadeDrive(0.6, -mod);
+    	drive.arcadeDrive(-0.6, -mod);
     }
+    
+    public void driveStraightDist(double distance, double angle)
+    {
+    	double strength = gyroPID.calcPIDDrive(distance, getAvgDist(), 1);
+    	drive.tankDrive(-0.6*strength, -0.6*strength);
+    }
+    
     public void driveStraight(boolean backwards)
     {
     	//double mod = gyroPID.calcPID(an, gyro.getAngle(), 0.5);
@@ -172,6 +187,15 @@ public class Chassis extends Subsystem {
     {
     	gyro.reset();
     	//imu.reset();
+    }
+    public double getAvgDist()
+    {
+    	return (leftenc.get()+rightenc.get())/2;
+    }
+    public void resetEncoders()
+    {
+    	leftenc.reset();
+    	rightenc.reset();
     }
     public double getAccel()
     {
