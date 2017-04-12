@@ -25,6 +25,8 @@ public class RobotMap {
 	
 	public static double forwardthing = 84.7;
 	
+	// Disclaimer: The below variables are of team 1241, Theory6.
+	
 	public static final int driveWheelRadius = 3;//wheel radius in inches
 	public static final int drivePulsePerRotation = 256; //encoder pulse per rotation
 	public static final double driveGearRatio = 1/1; //ratio between wheel and encoder

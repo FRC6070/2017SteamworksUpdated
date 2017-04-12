@@ -3,7 +3,7 @@ package org.usfirst.frc.team6070.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *	Western University Event Ball Auto (Defunct)
  */
 public class BallsAuto extends CommandGroup {
 

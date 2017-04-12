@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *	Right Side Autonomous
+ *	@author Kshitij Vaditya
  */
 public class K_Autonomous extends CommandGroup {
     

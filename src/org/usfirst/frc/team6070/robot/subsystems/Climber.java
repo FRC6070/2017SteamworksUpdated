@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Climber subsystem, driven by two mini-cims.
+ * @author Nafeh Shoaib
+ * @author Tiger Kong
  */
 public class Climber extends Subsystem {
 

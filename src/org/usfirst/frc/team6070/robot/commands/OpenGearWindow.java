@@ -8,7 +8,7 @@ import org.usfirst.frc.team6070.robot.*;
 import org.usfirst.frc.team6070.robot.subsystems.*;
 
 /**
- *
+ *	@author Stephen Guo
  */
 public class OpenGearWindow extends Command {
 

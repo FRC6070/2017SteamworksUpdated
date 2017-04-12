@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *	Automatic gear loading program
+ *	@author tig567899
  */
 public class AutoGearing extends Command {
 

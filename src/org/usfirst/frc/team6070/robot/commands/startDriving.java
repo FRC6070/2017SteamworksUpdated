@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
 
 /**
- * Main Driving Class
+ *	Main Driving Class
+ *	@author Stephen Guo
+ *	@author Tiger Kong
+ *	@author Nafeh Shoaib
  */
 @SuppressWarnings("unused")
 public class startDriving extends Command {

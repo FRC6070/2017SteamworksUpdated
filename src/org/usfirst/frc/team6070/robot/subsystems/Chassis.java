@@ -14,7 +14,8 @@ import org.usfirst.frc.team6070.robot.theory6PID.PIDController;
 
 
 /**
- * This is the main drivetrain.
+ *	This is the main drivetrain.
+ *	@author Tiger Kong
  */
 @SuppressWarnings("unused")
 public class Chassis extends Subsystem {

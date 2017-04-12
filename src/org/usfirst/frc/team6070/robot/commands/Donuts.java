@@ -5,7 +5,7 @@ import org.usfirst.frc.team6070.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *	@author Stephen Guo
  */
 public class Donuts extends Command {
 

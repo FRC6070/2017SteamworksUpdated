@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 /**
  * Gear manipulator by a linear actuator, controlled by a limit switch. Potentiometer will be added
+ * @author Tiger Kong
  */
 @SuppressWarnings("unused")
 public class GearBox extends Subsystem {

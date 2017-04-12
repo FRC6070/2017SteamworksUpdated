@@ -5,7 +5,8 @@ import org.usfirst.frc.team6070.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *	@author Tiger Kong
+ *	@author Nafeh Shoaib
  */
 public class FastClimb extends Command {
 

@@ -5,7 +5,7 @@ import org.usfirst.frc.team6070.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *	@author Tiger Kong
  */
 public class EZ5 extends Command {
 

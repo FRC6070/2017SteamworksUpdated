@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *	@author Stephen Guo
  */
 public class StephenAutonomous extends CommandGroup {
 

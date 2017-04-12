@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team6070.robot.commands.*;
 /**
- *
+ *	@author Stephen Guo
  */
 public class Stabilizer extends Subsystem {
 	
