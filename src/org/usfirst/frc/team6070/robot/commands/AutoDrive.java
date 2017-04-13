@@ -15,6 +15,7 @@ public class AutoDrive extends Command {
 	boolean backwards = false;
 	boolean withenc = false;
 	double dist = 0;
+	double angle = 0;
     public AutoDrive(double timeout) {
     	//requires (Robot.DriveBase);
     	this.timeout = timeout;
@@ -28,11 +29,12 @@ public class AutoDrive extends Command {
     	this.backwards = true;
     }
     
-    public AutoDrive(double dist, double timeout, boolean backwards)
+    public AutoDrive(double dist, double timeout, double angle, boolean backwards)
     {
     	this.timeout = timeout;
     	this.dist = dist;
     	this.backwards = backwards;
+    	this.angle = angle;
     	withenc = true;
     }
 
@@ -40,7 +42,7 @@ public class AutoDrive extends Command {
     protected void initialize() 
     {
     	setTimeout(timeout);
-    	Robot.DriveBase.resetEncoders();
+    	//Robot.DriveBase.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run

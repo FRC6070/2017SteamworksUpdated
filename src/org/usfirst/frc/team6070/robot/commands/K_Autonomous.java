@@ -20,7 +20,7 @@ public class K_Autonomous extends CommandGroup {
     	
     	// move initial distance
     	//addSequential(new AutoDrive(RobotMap.forwardval)); // <--- wtf
-    	addSequential(new AutoDrive(RobotMap.forwardthing, RobotMap.forwardval, false));
+    	addSequential(new AutoDrive(RobotMap.forwardthing, RobotMap.forwardval, 0.0, false));
     	// turn to 60 degrees (left on red, right on blue)
     	//to line up with airship
 		addSequential(new AutoTurn(-RobotMap.turnangle, 2));
@@ -29,14 +29,13 @@ public class K_Autonomous extends CommandGroup {
     	//Gear
     	
     	addSequential(new AutoGearing());
-    	/*
+    	
     	addSequential (new AutoDrive(1, true)); // back away
     	addSequential(new AutoTurn(50, 2)); // turn parallel to the airship, facing the neutral zone
     	addSequential(new AutoDrive(1.5)); // clear the airship
     	addSequential(new AutoTurn(0, 2)); // turn towards the retrieval zone
     	addSequential (new AutoDrive(3)); // drive
         	
-    	*/
     	// On red side (starting on the right), go straight, angle into gear, back out, go forward
     	//Then align with retreval zone, drive as far in the netural zone
     	//On blue side (starting on the left, because the map if mirrored) and same steps^

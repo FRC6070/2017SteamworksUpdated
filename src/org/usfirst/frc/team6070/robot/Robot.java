@@ -72,6 +72,7 @@ public class Robot extends IterativeRobot {
 		// Setting Auto Options for the Chooser
 		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
+		chooser.addObject("Drive Forward Test", new AutoDrive(100.0, 10.0, 0.0, false));
 		chooser.addObject("Right", new K_Autonomous());
 		chooser.addObject("EZ 5 points", new EZ5(3));
 		chooser.addObject("Left", new StephenKenishaAuto());
@@ -87,7 +88,6 @@ public class Robot extends IterativeRobot {
 		camera1 = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 		camera2 = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 		server = CameraServer.getInstance().getServer();
-		
 		
 //		VideoCapture vc = new VideoCapture(0);
 //		if (vc.isOpened()) {
@@ -122,6 +122,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		runCameraSystem();
 	}
 
 	/**
@@ -199,11 +200,13 @@ public class Robot extends IterativeRobot {
 			//NetworkTable.getTable("").putString("CameraChoice", "cam1");
 			server.setSource(camera2);
 			System.out.print(camera2.getName());
+			//camera2.setResolution(640, 360);
 		} else if (!OI.right.getRawButton(1) && frontCameraIsEnabled) {
 			System.out.print("Setting camera 1\n");
 			//NetworkTable.getTable("").putString("CameraChoice", "cam0");
 			server.setSource(camera1);
 			System.out.print(camera1.getName());
+			//camera1.setResolution(640, 360);
 		}
 		frontCameraIsEnabled = OI.right.getRawButton(1);
 	}
@@ -215,6 +218,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Dist: ", DriveBase.getDist());
 		SmartDashboard.putData("Chassis:", DriveBase);
 		SmartDashboard.putNumber("Encoders", DriveBase.getAvgDist());
+		SmartDashboard.putNumber("Left Side", DriveBase.getLeftEnc());
+		SmartDashboard.putNumber("Right Side", DriveBase.getRightEnc());
 		
 //		SmartDashboard.putNumber(", value)
 	}

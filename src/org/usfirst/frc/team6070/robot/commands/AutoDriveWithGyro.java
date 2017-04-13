@@ -20,6 +20,10 @@ public class AutoDriveWithGyro extends Command {
     	this.angle = angle;
     	this.reverse = reverse;
     }
+    
+    public AutoDriveWithGyro() {
+    	requires(Robot.DriveBase);
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {

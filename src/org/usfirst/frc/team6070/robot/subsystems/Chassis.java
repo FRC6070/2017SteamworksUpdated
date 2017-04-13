@@ -45,8 +45,18 @@ public class Chassis extends Subsystem {
 	double kidrive = 0.0;
 	double kddrive = 0.0;
 	
-	Encoder leftenc = new Encoder(1,2, false, Encoder.EncodingType.k4X);
-	Encoder rightenc = new Encoder(3, 4, false, Encoder.EncodingType.k4X);
+	double kPTutorial = 0.3;
+	
+	
+	// MARK: Encoders
+	/*
+	 * Wheel Diameter = 6 inches
+	 * Circumference Formula = 2pir = dpi
+	 * Wheel Circumference, theoretical = 6pi inches = 18.84955 inches
+	 * Wheel Circumference, measured = 19 inches
+	 */
+	Encoder leftenc = new Encoder(3, 4, true, Encoder.EncodingType.k4X);
+	Encoder rightenc = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
 	
 	public PIDController gyroPID = new PIDController(kpgyro, kigyro, kdgyro);
 	public PIDController accelPID = new PIDController(kpaccel, kiaccel, kdaccel);
@@ -68,7 +78,7 @@ public class Chassis extends Subsystem {
     	anglefix = 0;
     	leftenc.setDistancePerPulse(RobotMap.driveEncoderDistPerTick);
     	rightenc.setDistancePerPulse(RobotMap.driveEncoderDistPerTick);
-    	
+    	SmartDashboard.putNumber("Distpertick", RobotMap.driveEncoderDistPerTick);
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new startDriving());
@@ -111,9 +121,16 @@ public class Chassis extends Subsystem {
     	drive.arcadeDrive(-0.6, -mod);
     }
     
+    public void driveStraightWithWPIlibGyro() {
+    	// TODO: Gyro is reset; change angles in left and right autos.
+    	double angle = gyro.getAngle();
+    	drive.drive(-0.6, -angle*kPTutorial);
+    }
+    
     public void driveStraightDist(double distance, double angle)
     {
     	double strength = gyroPID.calcPIDDrive(distance, getAvgDist(), 1);
+    	//double ang = gyroPID.calcPID(angle, gyro.getAngle(), 1);
     	drive.tankDrive(-0.6*strength, -0.6*strength);
     }
     
@@ -166,7 +183,16 @@ public class Chassis extends Subsystem {
     }
     public double getAvgDist()
     {
-    	return (leftenc.getDistance()+rightenc.getDistance())/2;
+    	return (getLeftEnc() +getRightEnc())/2;
+    }
+    
+    public double getLeftEnc()
+    {
+    	return leftenc.getDistance();
+    }
+    public double getRightEnc()
+    {
+    	return rightenc.getDistance();
     }
     public void resetEncoders()
     {
