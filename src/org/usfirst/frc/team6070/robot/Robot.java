@@ -73,13 +73,15 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
 		chooser.addObject("Drive Forward Test", new AutoDrive(100.0, 10.0, 0.0, false));
-		chooser.addObject("Right", new K_Autonomous());
+		chooser.addObject("Blue Right", new K_Autonomous());
 		chooser.addObject("EZ 5 points", new EZ5(3));
-		chooser.addObject("Left", new StephenKenishaAuto());
+		chooser.addObject("Blue Left", new StephenKenishaAuto());
+		chooser.addObject("Red Left", new RedLeftAuto());
+		chooser.addObject("Red Right", new RedRightAuto());
 		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30, 2));
 		chooser.addObject("And You thought we were contributing to this alliance...", new Donuts(10));
 		chooser.addObject("Deliver Balls", new DeliverBall(1, 0.25));
-		chooser.addObject("3-Point Auto", new BallsAuto());
+		//chooser.addObject("3-Point Auto", new BallsAuto());
 		pref = Preferences.getInstance();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
