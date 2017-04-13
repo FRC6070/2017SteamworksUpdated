@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *	Left Side Autonomous
+ *	Left Side Autonomous for Blue
  *	@author Stephen Guo
  *	@author Kenisha Arora
  */
