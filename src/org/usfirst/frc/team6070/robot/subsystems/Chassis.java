@@ -41,7 +41,7 @@ public class Chassis extends Subsystem {
 	double kiaccel = 0.0;
 	double kdaccel = 0.0;
 	
-	double kpdrive = 0.1;
+	double kpdrive = 0.05;
 	double kidrive = 0.0;
 	double kddrive = 0.0;
 	

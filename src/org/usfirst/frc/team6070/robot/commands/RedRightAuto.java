@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RedRightAuto extends CommandGroup {
 
     public RedRightAuto() {
-    	addSequential(new AutoDrive(106.0, RobotMap.forwardval, 0.0, false));
+    	addSequential(new AutoDrive(110.0, RobotMap.forwardval, 0.0, false));
 //    	if (driver){
     		addSequential(new AutoTurn(-RobotMap.turnangle, 2));
         	addSequential (new AutoDrive(1));

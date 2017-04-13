@@ -14,7 +14,7 @@ public class StephenAutonomous extends CommandGroup {
     	if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
     		driver = 1;
     	}
-    	addSequential (new AutoDrive (2.3)); // move forward
+    	addSequential (new AutoDriveWithGyro (false, 0, 2.3)); // move forward
     	addSequential (new AutoGearing()); // initialize gear
     	addSequential (new AutoDrive (0.8, true)); // back away a bit
     	

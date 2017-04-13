@@ -31,8 +31,9 @@ public class AutoDrive extends Command {
     
     public AutoDrive(double dist, double timeout, double angle, boolean backwards)
     {
-    	this.timeout = timeout;
     	this.dist = dist;
+    	this.timeout = timeout;
+    	
     	this.backwards = backwards;
     	this.angle = angle;
     	withenc = true;

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class BlueRightAuto extends CommandGroup {
 
     public BlueRightAuto() {
-    	addSequential(new AutoDrive(106.0, RobotMap.forwardval, 0.0, false));
+    	addSequential(new AutoDrive(105.5, RobotMap.forwardval, 0.0, false)); // Nafeh changed this 5:16 pm; old = 106.0
 //    	if (driver){
     		addSequential(new AutoTurn(RobotMap.turnangle, 2));
         	addSequential (new AutoDrive(1));
