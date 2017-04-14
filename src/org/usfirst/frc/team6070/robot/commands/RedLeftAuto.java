@@ -12,7 +12,7 @@ public class RedLeftAuto extends CommandGroup {
 
     public RedLeftAuto() {
         	
-    	addSequential(new AutoDrive(RobotMap.forwardthing, RobotMap.forwardval, 0.0, false));
+    	addSequential(new AutoDrive(107.0, RobotMap.forwardval, 0.0, false));
     	// turn to 60 degrees (left on red, right on blue)
     	//to line up with airship
 		addSequential(new AutoTurn(RobotMap.turnangle, 2));
@@ -22,11 +22,11 @@ public class RedLeftAuto extends CommandGroup {
     	
     	addSequential(new AutoGearing());
     	
+    	addParallel(new AutoGearingBackSlow(3.25)); // Nafeh added this. TIGER CHECK THIS.
+    	
     	addSequential (new AutoDrive(1, true)); // back away
-    	addSequential(new AutoTurn(50, 2)); // turn parallel to the airship, facing the neutral zone
-    	addSequential(new AutoDrive(1.5)); // clear the airship
-    	addSequential(new AutoTurn(0, 2)); // turn towards the retrieval zone
-    	addSequential (new AutoDrive(3)); // drive
+       	addSequential(new AutoTurn(0, 2)); // turn towards the retrieval zone
+    	addSequential (new AutoDrive(5)); // drive
     	//Red side (left), forward, turn, gear, back, turn netural zone
     	//Blue side (right) as it is mirrored
     	

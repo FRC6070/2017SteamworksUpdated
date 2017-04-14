@@ -27,6 +27,7 @@ public class StephenKenishaAuto extends CommandGroup {
         	//Gear
         	
         	addSequential(new AutoGearing());
+        	addParallel(new AutoGearingBackSlow(3.25)); // Nafeh added this. TIGER CHECK THIS.
         	addSequential (new AutoDrive(1, true));
         	addSequential(new AutoTurn(-50, 2));
         	addSequential(new AutoDrive(1.5));

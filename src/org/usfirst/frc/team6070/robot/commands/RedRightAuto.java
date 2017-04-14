@@ -10,18 +10,22 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RedRightAuto extends CommandGroup {
 
     public RedRightAuto() {
-    	addSequential(new AutoDrive(110.0, RobotMap.forwardval, 0.0, false));
+    	addSequential(new AutoDrive(107.0, RobotMap.forwardval, 0.0, false));
 //    	if (driver){
     		addSequential(new AutoTurn(-RobotMap.turnangle, 2));
-        	addSequential (new AutoDrive(1));
-        	//Gear
+    		// Gear Window
+    		//addParallel(new OpenGearWindowAuto(1)); // Nafeh added this, to pull the window up. Pls check and comment out if necessary
         	
-        	addSequential(new AutoGearing());
+    		// Move forward
+    		addSequential (new AutoDrive(1));
+        	
+    		//Gear
+          	addSequential(new AutoGearing());
+          	addParallel(new AutoGearingBackSlow(3.25)); // Nafeh added this. TIGER CHECK THIS.
         	addSequential (new AutoDrive(1, true));
-        	addSequential(new AutoTurn(-50, 2));
-        	addSequential(new AutoDrive(1.5));
+
         	addSequential(new AutoTurn(0, 2));
-        	addSequential(new AutoDrive(3));
+        	addSequential(new AutoDrive(5));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

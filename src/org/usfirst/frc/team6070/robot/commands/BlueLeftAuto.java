@@ -22,6 +22,8 @@ public class BlueLeftAuto extends CommandGroup {
     	
     	addSequential(new AutoGearing());
     	
+    	addParallel(new AutoGearingBackSlow(0.8)); // Nafeh added this. TIGER CHECK THIS.
+    	
     	addSequential (new AutoDrive(1, true)); // back away
     	addSequential(new AutoTurn(-50, 2)); // turn parallel to the airship, facing the neutral zone
     	addSequential(new AutoDrive(1.5)); // clear the airship

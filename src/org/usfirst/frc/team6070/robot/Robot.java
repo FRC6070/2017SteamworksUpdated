@@ -70,12 +70,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		// Setting Auto Options for the Chooser
-		chooser.addObject("No Auto", new NoAuto());
+		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
 		chooser.addObject("Drive Forward Test", new AutoDrive(100.0, 10.0, 0.0, false));
 		chooser.addObject("Blue Right", new K_Autonomous());
 		chooser.addObject("EZ 5 points", new EZ5(3));
-		chooser.addDefault("Blue Left", new StephenKenishaAuto());
+		chooser.addObject("Blue Left", new StephenKenishaAuto());
 		chooser.addObject("Red Left", new RedLeftAuto());
 		chooser.addObject("Red Right", new RedRightAuto());
 		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30, 2));
@@ -145,7 +145,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		DriveBase.resetGyro();
 		autonomousCommand = (Command) chooser.getSelected();
-
+		DriveBase.resetEncoders();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

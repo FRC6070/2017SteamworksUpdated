@@ -21,9 +21,9 @@ public class RobotMap {
 	public static int gearisthere = 7;
 	
 	public static double forwardval = 3;
-	public static double turnangle = 60.0;
+	public static double turnangle = 58.0;
 	
-	public static double forwardthing = 105;
+	public static double forwardthing = 106.0;
 	
 	// Disclaimer: The below variables are of team 1241, Theory6.
 	

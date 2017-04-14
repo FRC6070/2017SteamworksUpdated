@@ -1,36 +1,29 @@
 package org.usfirst.frc.team6070.robot.commands;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.usfirst.frc.team6070.robot.OI;
 import org.usfirst.frc.team6070.robot.Robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team6070.robot.gmfilewriter.GMFileWriter;
 
 /**
- *	Main Driving Class
- *	@author Stephen Guo
- *	@author Tiger Kong
- *	@author Nafeh Shoaib
+ *
  */
-@SuppressWarnings("unused")
-public class startDriving extends Command {
-
+public class StartDrivingWithAcceleration extends Command {
 	double control; 
 	// 1 is arcadeDrive, 0 is tankDrive, 2 is Nafeh-drive
 	int thing = 0;
 	int reverse = 1;
 	double slow = 0.6;
+	double rampConstant = 0.1;
+	
+	// 
+	
 	//double leftinput 
 	//public GMFileWriter gMFileWriter = new GMFileWriter();
 	
-    public startDriving() {
+    public StartDrivingWithAcceleration() {
     	requires (Robot.DriveBase);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -42,6 +35,7 @@ public class startDriving extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	control = SmartDashboard.getNumber("control",0);
     	SmartDashboard.putNumber("Control val", control);
 //    	if (OI.right.getTrigger())
@@ -58,8 +52,12 @@ public class startDriving extends Command {
     	}
     	if (OI.xbox.getTriggerAxis(Hand.kLeft) > 0.8)
     	{
-    		
-    		slow = 1;
+    		//Timer myTimer = new Timer();
+    		/*double timeConstant = 4;
+    		for (int i = 1; i < timeConstant; i++) {
+    			slow += 0.1;
+    			Timer.delay(0.1);
+    		}*/
     	}
     	else
     	{

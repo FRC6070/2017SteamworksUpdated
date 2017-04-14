@@ -17,6 +17,9 @@ public class BlueRightAuto extends CommandGroup {
         	//Gear
         	
         	addSequential(new AutoGearing());
+        	
+        	addParallel(new AutoGearingBackSlow(0.8)); // Nafeh added this. TIGER CHECK THIS.
+        	
         	addSequential (new AutoDrive(1, true));
         	addSequential(new AutoTurn(50, 2));
         	addSequential(new AutoDrive(1.5));
