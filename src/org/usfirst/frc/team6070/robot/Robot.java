@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
 	public static Chassis DriveBase;
 	public static Climber climber;
 	public static GearBox gear;
-	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
+	public static PowerDistributionPanel pdp;
 	public static Stabilizer gearwindow;
 	
 	Preferences pref;
@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 	//public GMFileWriter fileWriter = new GMFileWriter();
 
 	Command autonomousCommand;
-	public SendableChooser chooser = new SendableChooser();
+	public SendableChooser<Command> chooser;
 	
 	UsbCamera camera1;
 	UsbCamera camera2;
@@ -68,11 +68,15 @@ public class Robot extends IterativeRobot {
 		DriveBase = new Chassis();
 		gear = new GearBox();
 		oi = new OI();
+		pdp = new PowerDistributionPanel();
+		chooser = new SendableChooser<Command>();
+		 
+		pref = Preferences.getInstance();
 		
 		// Setting Auto Options for the Chooser
 		chooser.addDefault("No Auto", new NoAuto());
 		chooser.addObject("Centre auto", new StephenAutonomous());
-		chooser.addObject("Drive Forward Test", new AutoDrive(100.0, 10.0, 0.0, false));
+		chooser.addObject("Drive Forward Test", new AutoDrive(70.0, 7.0, 0.0, false));
 		chooser.addObject("Blue Right", new K_Autonomous());
 		chooser.addObject("EZ 5 points", new EZ5(3));
 		chooser.addObject("Blue Left", new StephenKenishaAuto());
@@ -81,8 +85,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Thingy - autoturn to -30", new AutoTurn(-30, 2));
 		chooser.addObject("And You thought we were contributing to this alliance...", new Donuts(10));
 		chooser.addObject("Deliver Balls", new DeliverBall(1, 0.25));
+		chooser.addObject("Demo", new DemoCommand());
 		//chooser.addObject("3-Point Auto", new BallsAuto());
-		pref = Preferences.getInstance();
 		DriveBase.resetGyro();
 		DriveBase.resetAccel();
 		DriveBase.resetEncoders();
@@ -164,6 +168,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	@Override

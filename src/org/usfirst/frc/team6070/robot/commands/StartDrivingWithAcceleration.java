@@ -18,7 +18,16 @@ public class StartDrivingWithAcceleration extends Command {
 	double slow = 0.6;
 	double rampConstant = 0.1;
 	
-	// 
+	/*
+	 * Acceleration Mode
+	 */
+	double inputLeft = 0;
+	double inputRight = 0;
+	double prevInputLeft = 0;
+	double prevInputRight = 0;
+	
+	double deltaL = 0;
+	double deltaR = 0;
 	
 	//double leftinput 
 	//public GMFileWriter gMFileWriter = new GMFileWriter();
@@ -32,7 +41,7 @@ public class StartDrivingWithAcceleration extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     }
-
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
@@ -109,7 +118,17 @@ public class StartDrivingWithAcceleration extends Command {
             }
     	}).start();
     }
-
+    
+    void slowlyAccelerateAndDrive () {
+    	inputLeft = OI.driveYleft();
+    	inputRight = OI.driveYright();
+    	
+    	deltaL = inputLeft - prevInputLeft;
+    	deltaR = inputRight - prevInputRight;
+    	
+    	
+    }
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

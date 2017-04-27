@@ -5,12 +5,12 @@ import org.usfirst.frc.team6070.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Right side auto for Blue alliance
+ * NOT THE ACTUAL Right side auto for Blue alliance
  */
 public class BlueRightAuto extends CommandGroup {
 
     public BlueRightAuto() {
-    	addSequential(new AutoDrive(105.5, RobotMap.forwardval, 0.0, false)); // Nafeh changed this 5:16 pm; old = 106.0
+    	addSequential(new AutoDrive(103.0, RobotMap.forwardval, 0.0, false)); // Nafeh changed this 5:16 pm; old = 106.0
 //    	if (driver){
     		addSequential(new AutoTurn(RobotMap.turnangle, 2));
         	addSequential (new AutoDrive(1));

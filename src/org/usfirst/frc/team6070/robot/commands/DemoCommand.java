@@ -2,36 +2,34 @@ package org.usfirst.frc.team6070.robot.commands;
 
 import org.usfirst.frc.team6070.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Left Side Autonomous for Red
+ * Command for Staff Meeting Demo
  */
-public class BlueLeftAuto extends CommandGroup {
+public class DemoCommand extends CommandGroup {
 
-    public BlueLeftAuto() {
-        	
-    	addSequential(new AutoDrive(0.0, RobotMap.forwardval, 0.0, false));
+    public DemoCommand() {
+    	
+    	addSequential(new AutoDrive(50.0, RobotMap.forwardval, 0.0, false));
     	// turn to 60 degrees (left on red, right on blue)
     	//to line up with airship
-		addSequential(new AutoTurn(-RobotMap.turnangle, 2));
+		addSequential(new AutoTurn(RobotMap.turnangle, 2));
 		
-    	addSequential (new AutoDrive(1)); // drive into the lift
+		addSequential(new AutoDrive(10.0, RobotMap.forwardval, 0.0, false));
+    	//addSequential (new AutoDrive(1)); // drive into the lift
     	//Gear
     	
     	addSequential(new AutoGearing());
     	
-    	addParallel(new AutoGearingBackSlow(0.8)); // Nafeh added this. TIGER CHECK THIS.
+    	addParallel(new AutoGearingBackSlow(3.25)); // Nafeh added this. TIGER CHECK THIS.
     	
-    	addSequential (new AutoDrive(1, true)); // back away
-    	addSequential(new AutoTurn(-50, 2)); // turn parallel to the airship, facing the neutral zone
-    	addSequential(new AutoDrive(1.5)); // clear the airship
-    	addSequential(new AutoTurn(0, 2)); // turn towards the retrieval zone
-    	addSequential (new AutoDrive(3)); // drive
-    	//Red side (left), forward, turn, gear, back, turn netural zone
-    	//Blue side (right) as it is mirrored
+    	addSequential(new AutoDrive(10.0, RobotMap.forwardval, 0.0, true));
+    	//addSequential (new AutoDrive(1, true)); // back away
+       	addSequential(new AutoTurn(0, 2)); // turn towards the retrieval zone
     	
+       	addSequential(new AutoDrive(10.0, RobotMap.forwardval, 0.0, false));
+       	//addSequential (new AutoDrive(5)); // drive
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

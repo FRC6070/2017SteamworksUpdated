@@ -41,9 +41,9 @@ public class Chassis extends Subsystem {
 	double kiaccel = 0.0;
 	double kdaccel = 0.0;
 	
-	double kpdrive = 0.05;
+	double kpdrive = 0.11;
 	double kidrive = 0.0;
-	double kddrive = 0.0;
+	double kddrive = 0.05;
 	
 	double kPTutorial = 0.3;
 	
@@ -129,9 +129,10 @@ public class Chassis extends Subsystem {
     
     public void driveStraightDist(double distance, double angle)
     {
-    	double strength = gyroPID.calcPIDDrive(distance, getAvgDist(), 1);
+    	double strength = drivePID.calcPIDDrive(distance, getAvgDist(), 0.5);
+    	
     	//double ang = gyroPID.calcPID(angle, gyro.getAngle(), 1);
-    	drive.tankDrive(-0.6*strength, -0.6*strength);
+    	drive.tankDrive(-0.7*strength, -0.7*strength);
     }
     
     public void driveStraight(boolean backwards)
